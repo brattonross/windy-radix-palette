@@ -1,0 +1,33 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@brattonross/prettier-config': ^0.1.0
+  '@radix-ui/colors': ^0.1.7
+  prettier: ^2.4.1
+
+dependencies:
+  '@radix-ui/colors': 0.1.7
+
+devDependencies:
+  '@brattonross/prettier-config': 0.1.0_prettier@2.4.1
+  prettier: 2.4.1
+
+packages:
+
+  /@brattonross/prettier-config/0.1.0_prettier@2.4.1:
+    resolution: {integrity: sha512-HWKKHa4gGD+TACgzIqhVFYgVSBeSS4l5Sx+FusUKLl7mtmtABlg42/Tyq7MmtT5cANCnBH/Kb6dpchWxgiBxKQ==}
+    peerDependencies:
+      prettier: ^2.0.0
+    dependencies:
+      prettier: 2.4.1
+    dev: true
+
+  /@radix-ui/colors/0.1.7:
+    resolution: {integrity: sha512-E6+ZPQ+FFn1/NZ4c/KRvZTu9KjC/MXrbJNETYs1HKe96gyxQivPu65FkhOsRnPigvJ0YJ9ZxYGxayqDNmaC1cQ==}
+    dev: false
+
+  /prettier/2.4.1:
+    resolution: {integrity: sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true

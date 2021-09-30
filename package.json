@@ -1,0 +1,25 @@
+{
+  "name": "windy-radix-palette",
+  "version": "0.0.1",
+  "description": "Bring Radix Colors to TailwindCSS",
+  "main": "index.js",
+  "repository": "https://github.com/brattonross/windy-radix-palette",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "preset"
+  ],
+  "author": "Ross Bratton <bratton.ross@gmail.com>",
+  "license": "MIT",
+  "prettier": "@brattonross/prettier-config",
+  "dependencies": {
+    "@radix-ui/colors": "^0.1.7"
+  },
+  "devDependencies": {
+    "@brattonross/prettier-config": "^0.1.0",
+    "prettier": "^2.4.1"
+  }
+}
