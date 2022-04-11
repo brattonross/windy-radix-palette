@@ -2,6 +2,12 @@
 
 Tailwind preset for bringing [Radix Colors](https://www.radix-ui.com/colors) palette to [Tailwind](https://tailwindcss.com/).
 
+## Features
+
+- Automatic dark mode palette ✨
+- Prototype fast by making all colors available 💨
+- Exclude colors you don't need to keep your CSS lean 💪
+
 ## Usage
 
 Install the preset from npm. You will also need `postcss-import` or an equivalent way to import this preset's base styles into your CSS:
@@ -10,38 +16,15 @@ Install the preset from npm. You will also need `postcss-import` or an equivalen
 npm install --save-dev windy-radix-palette postcss-import
 ```
 
-### 1. Preset
+### Quick start
 
 Add the preset to your `tailwind.config.js`:
 
 ```js
 module.exports = {
   presets: [require('windy-radix-palette')],
-  // your config here...
 };
 ```
-
-Note that adding the preset will add all Radix colors to your Tailwind config. This won't stop Tailwind from purging unused colors, but if you don't include all colors via CSS, then it might cause [Tailwind Intellisense](https://github.com/tailwindlabs/tailwindcss-intellisense) to think that some colors are available when they actually aren't.
-
-If you want to add only a subset of the colors, you can do so by explicity importing and adding the colors. Not using the preset also means that you have to set the dark mode strategy manually if you plan to use dark mode:
-
-```js
-const colors = require('windy-radix-palette/colors');
-
-module.exports = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      colors: {
-        red: colors.red,
-        blueA: colors.blueA,
-      },
-    },
-  },
-};
-```
-
-### 2. CSS base styles
 
 Add `postcss-import` to your `postcss.config.js`:
 
@@ -55,26 +38,60 @@ module.exports = {
 };
 ```
 
-Import the base styles in your css. You have a choice of importing all colors, or just the ones that you want to use. If you import all colors, then their CSS variables will not be removed from the output CSS, since Tailwind does not purge unused CSS variables.
-
-Importing all colors:
+Import the base styles in your css:
 
 ```css
 @import 'tailwindcss/base';
-@import 'windy-radix-palette/base.css';
+@import 'windy-radix-palette/base';
 
 @import 'tailwindcss/components';
 
 @import 'tailwindcss/utilities';
 ```
 
-Importing a subset of colors. Note that you need to import the dark styles separately if you intend to use them:
+Now the colors will become available for use with Tailwind utilities:
+
+```html
+<button class="bg-tomato-4 hover:bg-tomato-5 text-tomatoA-11">Button</button>
+```
+
+### À la carte
+
+Colors can be added individually:
+
+```js
+const colors = require('windy-radix-palette/colors');
+
+module.exports = {
+  darkMode: 'class',
+  theme: {
+    colors: {
+      blackA: colors.blackA,
+      tomato: colors.tomato
+    }
+  }
+};
+```
+
+Add `postcss-import` to your `postcss.config.js`:
+
+```js
+module.exports = {
+  plugins: {
+    'postcss-import': {},
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+Import the same colors that you used in your Tailwind config. Note that you need to also import the dark css as well if you want to use dark mode:
 
 ```css
 @import 'tailwindcss/base';
-@import 'windy-radix-palette/blue.css';
-@import 'windy-radix-palette/blueDark.css';
-@import 'windy-radix-palette/redA.css';
+@import 'windy-radix-palette/blackA.css';
+@import 'windy-radix-palette/tomato.css';
+@import 'windy-radix-palette/tomatoDark.css';
 
 @import 'tailwindcss/components';
 
@@ -83,13 +100,11 @@ Importing a subset of colors. Note that you need to import the dark styles separ
 
 See the [Tailwind docs](https://tailwindcss.com/docs/using-with-preprocessors#build-time-imports) for more information about build-time imports.
 
-Now the colors will become available for use with Tailwind utilities:
-
-```html
-<button class="bg-tomato-4 hover:bg-tomato-5 text-tomatoA-11">Button</button>
-```
-
 ## Dark mode
+
+Unlike in the default Tailwind palette, Radix Colors does not share a color palette between light and dark mode. The palettes are designed to be used exclusively in their associated mode.
+
+This package embraces that philosophy by toggling between the palettes based on the presence of a `dark` class, so instead of needing to write `bg-blue-3 dark:bg-blueDark-3`, you just need to write `bg-blue-3`, and the `blue-3` from the dark palette will be applied when wrapped in an element with the `dark` class.
 
 ### Class strategy
 
@@ -103,7 +118,7 @@ Whilst it is possible to use this preset with the media strategy, it isn't fully
 
 ## How does it work?
 
-This package uses the [Radix Colors](https://www.radix-ui.com/colors) palette to generate a Tailwind preset and a set of CSS files. The Radix Colors CSS files are modified so that the dark palette is more compatible with Tailwind when using the `class` dark mode strategy.
+This package uses the [Radix Colors](https://www.radix-ui.com/colors) palette to generate a Tailwind preset and a modifed set of the Radix Colors CSS that are more compatible with Tailwind.
 
 ## Thanks
 
