@@ -1,22 +1,20 @@
 # Windy Radix Palette
 
-Tailwind preset for bringing [Radix Colors](https://www.radix-ui.com/colors) palette to [Tailwind](https://tailwindcss.com/).
+Tailwind preset for bringing [Radix Colors](https://www.radix-ui.com/colors) to [Tailwind](https://tailwindcss.com/).
 
-## Features
+Features an automatic dark mode palette switch based on the presence of the `.dark` class.
 
-- Automatic dark mode palette ✨
-- Prototype fast by making all colors available 💨
-- Exclude colors you don't need to keep your CSS lean 💪
+## Installation
+
+```bash
+npm install --save-dev windy-radix-palette
+```
 
 ## Usage
 
-Install the preset from npm. You will also need `postcss-import` or an equivalent way to import this preset's base styles into your CSS:
+### Tailwind CLI
 
-```bash
-npm install --save-dev windy-radix-palette postcss-import
-```
-
-### Quick start
+Since Tailwind v3.1, the [Tailwind CLI has built-in support for CSS imports](https://tailwindcss.com/blog/tailwindcss-v3-1#built-in-support-for-css-imports-in-the-cli). This means that PostCSS is not required if you use Tailwind CLI v3.1+ to process your CSS.
 
 Add the preset to your `tailwind.config.js`:
 
@@ -26,6 +24,26 @@ module.exports = {
 };
 ```
 
+Import the base styles in your css:
+
+```css
+@import 'tailwindcss/base';
+@import 'windy-radix-palette/base';
+
+@import 'tailwindcss/components';
+
+@import 'tailwindcss/utilities';
+```
+
+### PostCSS
+
+Add the preset to your `tailwind.config.js`:
+
+```js
+module.exports = {
+  presets: [require('windy-radix-palette')],
+};
+```
 Add `postcss-import` to your `postcss.config.js`:
 
 ```js
@@ -49,7 +67,7 @@ Import the base styles in your css:
 @import 'tailwindcss/utilities';
 ```
 
-Now the colors will become available for use with Tailwind utilities:
+## Usage
 
 ```html
 <button class="bg-tomato-4 hover:bg-tomato-5 text-tomatoA-11">Button</button>
@@ -57,7 +75,7 @@ Now the colors will become available for use with Tailwind utilities:
 
 ### À la carte
 
-Colors can be added individually:
+Colors can be manually added to Tailwind config if you prefer:
 
 ```js
 const colors = require('windy-radix-palette/colors');
@@ -73,19 +91,7 @@ module.exports = {
 };
 ```
 
-Add `postcss-import` to your `postcss.config.js`:
-
-```js
-module.exports = {
-  plugins: {
-    'postcss-import': {},
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
-```
-
-Import the same colors that you used in your Tailwind config. Note that you need to also import the dark css as well if you want to use dark mode:
+Remember to also import the corresponding colors in your css:
 
 ```css
 @import 'tailwindcss/base';
@@ -104,7 +110,7 @@ See the [Tailwind docs](https://tailwindcss.com/docs/using-with-preprocessors#bu
 
 Unlike in the default Tailwind palette, Radix Colors does not share a color palette between light and dark mode. The palettes are designed to be used exclusively in their associated mode.
 
-This package embraces that philosophy by toggling between the palettes based on the presence of a `dark` class, so instead of needing to write `bg-blue-3 dark:bg-blueDark-3`, you just need to write `bg-blue-3`, and the `blue-3` from the dark palette will be applied when wrapped in an element with the `dark` class.
+This package embraces that philosophy by toggling between the palettes based on the presence of a `dark` class, so you only need to use a single class to support both light and dark mode.
 
 ### Class strategy
 
@@ -116,10 +122,6 @@ To toggle between light and dark mode, you will need to manually add the `dark` 
 
 Whilst it is possible to use this preset with the media strategy, it isn't fully supported at this time. You will still need to manually add the `dark` class to an element in order for the dark mode palette to be applied.
 
-## How does it work?
+## Attributions
 
-This package uses the [Radix Colors](https://www.radix-ui.com/colors) palette to generate a Tailwind preset and a modifed set of the Radix Colors CSS that are more compatible with Tailwind.
-
-## Thanks
-
-Thanks go out to the [Radix UI](https://github.com/radix-ui) team for creating this wonderful color palette!
+[Radix UI](https://github.com/radix-ui) team for creating this wonderful color palette!
