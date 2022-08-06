@@ -1,0 +1,18 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^0.2.5",
+    "astro": "^1.0.0-rc.7",
+    "postcss-import": "^14.1.0",
+    "windy-radix-palette": "workspace:*"
+  }
+}
