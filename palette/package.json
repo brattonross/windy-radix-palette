@@ -23,8 +23,8 @@
   "license": "MIT",
   "scripts": {
     "prepublishOnly": "pnpm build",
-    "build": "tsx ./generate.js",
-    "dev": "tsx watch ./generate.js",
+    "build": "tsx ./generate.ts",
+    "dev": "tsx watch ./generate.ts",
     "clean": "run-p clean:*",
     "clean:css": "rimraf ./*.css",
     "clean:js": "rimraf ./{index,colors}.js",
