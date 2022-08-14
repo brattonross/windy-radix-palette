@@ -2,3 +2,4 @@ node_modules
 *.css
 index.js
 colors.js
+.turbo

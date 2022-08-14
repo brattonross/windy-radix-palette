@@ -1,0 +1,39 @@
+{
+  "name": "windy-radix-palette",
+  "version": "0.1.1",
+  "description": "Bring Radix Colors to Tailwind CSS",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/brattonross/windy-radix-palette",
+    "directory": "palette"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "tailwindcss",
+    "preset"
+  ],
+  "files": [
+    "index.js",
+    "colors.js",
+    "*.css"
+  ],
+  "author": "Ross Bratton <bratton.ross@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "pnpm build",
+    "build": "tsx ./generate.js",
+    "dev": "tsx watch ./generate.js",
+    "clean": "run-p clean:*",
+    "clean:css": "rimraf ./*.css",
+    "clean:js": "rimraf ./{index,colors}.js",
+    "format": "prettier --write './*.js'"
+  },
+  "devDependencies": {
+    "@radix-ui/colors": "^0.1.8",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "tsx": "^3.8.2"
+  }
+}

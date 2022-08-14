@@ -1,37 +1,17 @@
 {
-  "name": "windy-radix-palette",
-  "version": "0.1.1",
-  "description": "Bring Radix Colors to Tailwind CSS",
-  "main": "index.js",
+  "private": true,
+  "name": "windy-radix-palette-monorepo",
   "repository": "https://github.com/brattonross/windy-radix-palette",
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "tailwindcss",
-    "preset"
-  ],
-  "files": [
-    "index.js",
-    "colors.js",
-    "*.css"
-  ],
   "author": "Ross Bratton <bratton.ross@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "pnpm build",
-    "build": "tsx ./generate.js",
-    "dev": "tsx watch ./generate.js",
-    "clean": "run-p clean:*",
-    "clean:css": "rimraf ./*.css",
-    "clean:js": "rimraf ./{index,colors}.js",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "clean": "turbo run clean",
     "format": "prettier --write './*.js'"
   },
   "devDependencies": {
-    "@radix-ui/colors": "^0.1.8",
-    "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
-    "tsx": "^3.8.0"
+    "turbo": "^1.4.3"
   }
 }
