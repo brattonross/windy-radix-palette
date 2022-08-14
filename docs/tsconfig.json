@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": true,
+    "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext"
+  }
+}

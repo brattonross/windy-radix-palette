@@ -1,0 +1,24 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^1.0.0",
+    "@astrojs/tailwind": "^1.0.0",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "astro": "^1.0.5",
+    "postcss": "^8.4.16",
+    "postcss-import": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "windy-radix-palette": "workspace:*"
+  }
+}
