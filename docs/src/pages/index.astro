@@ -1,4 +1,5 @@
 ---
+import { ThemeToggleButton } from "../components/ThemeToggleButton";
 import "../styles/base.css";
 ---
 
@@ -8,16 +9,41 @@ import "../styles/base.css";
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<title>Astro</title>
+
+	<script is:inline>
+		const key = 'windy-radix-palette-theme'
+		const theme = (() => {
+			if (typeof localStorage !== "undefined" && localStorage.getItem(key)) {
+				return localStorage.getItem(key);
+			}
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				return "dark";
+			}
+			return "light";
+		})();
+		if (theme === "light") {
+			document.documentElement.classList.remove("dark");
+		} else {
+			document.documentElement.classList.add("dark");
+		}
+		window.localStorage.setItem(key, theme);
+	</script>
 </head>
 
 <body class="bg-mauve-1">
-	<section>
-		<h1>Bring Radix Colors to Tailwind CSS</h1>
-		<code>
-			<pre>npm install windy-radix-palette</pre>
-		</code>
+	<header class="h-16 flex items-center justify-end px-4">
+		<ThemeToggleButton client:load />
+	</header>
+	<section class="w-full max-w-7xl mx-auto pt-6 pb-10 px-4">
+		<h1 class="mb-4 text-center font-semibold text-4xl">Bring Radix Colors to Tailwind CSS</h1>
+		<p class="mb-8 text-center text-lg text-mauve-11">Improving the compatibility of Radix Colors and Tailwind CSS.</p>
+		<div class="flex items-center justify-center">
+			<code class="rounded-full bg-slate-3 text-sm text-mauve-12 px-3 py-1">
+				<pre>npm install windy-radix-palette</pre>
+			</code>
+		</div>
 	</section>
-	<section>
+	<section class="w-full max-w-7xl mx-auto px-4 pb-16">
 		<div class="grid grid-cols-[repeat(13,minmax(0,1fr))] gap-1 items-center">
 			<!-- Shades -->
 			<div></div>
