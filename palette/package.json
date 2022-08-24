@@ -1,6 +1,6 @@
 {
   "name": "windy-radix-palette",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Bring Radix Colors to Tailwind CSS",
   "main": "index.js",
   "repository": {
