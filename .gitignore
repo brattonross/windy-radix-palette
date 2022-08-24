@@ -1,5 +1,3 @@
 node_modules
-palette/*.css
-index.js
-colors.js
+dist
 .turbo

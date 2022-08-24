@@ -8,10 +8,12 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "clean": "turbo run clean",
-    "format": "prettier --write './*.js'"
+    "format": "prettier --write './**/*.{js,cjs,mjs,ts,tsx,md,astro}'"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.5.3",
+    "prettier-plugin-tailwindcss": "^0.1.13",
     "turbo": "^1.4.3"
   }
 }

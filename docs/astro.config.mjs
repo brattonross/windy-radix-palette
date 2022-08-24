@@ -3,12 +3,5 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  integrations: [
-    react(),
-    tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
-    }),
-  ],
+  integrations: [react(), tailwind()],
 });

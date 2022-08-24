@@ -12,28 +12,20 @@
   },
   "keywords": [
     "tailwindcss",
-    "preset"
+    "plugin",
+    "radix-ui"
   ],
   "files": [
-    "index.js",
-    "colors.js",
-    "*.css"
+    "index.js"
   ],
   "author": "Ross Bratton <bratton.ross@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "prepublishOnly": "pnpm build",
-    "build": "tsx ./generate.ts",
-    "dev": "tsx watch ./generate.ts",
-    "clean": "run-p clean:*",
-    "clean:css": "rimraf ./*.css",
-    "clean:js": "rimraf ./{index,colors}.js",
-    "format": "prettier --write './*.js'"
+  "peerDependencies": {
+    "@radix-ui/colors": ">=0.1.0",
+    "tailwindcss": ">=3.0.0"
   },
   "devDependencies": {
     "@radix-ui/colors": "^0.1.8",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "tsx": "^3.8.2"
+    "tailwindcss": "^3.1.8"
   }
 }
