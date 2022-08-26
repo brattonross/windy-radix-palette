@@ -4,11 +4,14 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
-	<header class="h-16 flex items-center justify-end px-4">
+	<header class="h-16 flex items-center justify-between px-4">
+		<a href="/" class="font-medium">windy-radix-palette</a>
 		<ThemeToggleButton client:load />
 	</header>
-	<section class="w-full max-w-7xl mx-auto pt-6 pb-10 px-4">
-		<h1 class="mb-4 lg:text-center font-semibold text-mauve-12 text-4xl">
+	<section class="w-full max-w-7xl mx-auto py-12 px-4">
+		<h1
+			class="mb-4 lg:text-center font-semibold text-mauve-12 tracking-tighter text-4xl lg:text-5xl"
+		>
 			Bring Radix Colors to Tailwind CSS
 		</h1>
 		<p class="mb-8 lg:text-center text-lg text-mauve-11">
