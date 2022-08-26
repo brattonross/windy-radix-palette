@@ -1,7 +1,47 @@
-const radix = require('@radix-ui/colors');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  plugins: [require('windy-radix-palette')],
+  theme: {
+    extend: {
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': theme('colors.mauve[12]'),
+            '--tw-prose-headings': theme('colors.mauve[12]'),
+            '--tw-prose-lead': theme('colors.mauve[11]'),
+            '--tw-prose-links': theme('colors.mauve[12]'),
+            '--tw-prose-bold': theme('colors.mauve[12]'),
+            '--tw-prose-counters': theme('colors.mauve[11]'),
+            '--tw-prose-bullets': theme('colors.mauve[7]'),
+            '--tw-prose-hr': theme('colors.mauve[6]'),
+            '--tw-prose-quotes': theme('colors.mauve[12]'),
+            '--tw-prose-quote-borders': theme('colors.mauve[6]'),
+            '--tw-prose-captions': theme('colors.mauve[11]'),
+            '--tw-prose-code': theme('colors.mauve[12]'),
+            '--tw-prose-pre-code': theme('colors.mauve[12]'),
+            '--tw-prose-pre-bg': theme('colors.mauve[3]'),
+            '--tw-prose-th-borders': theme('colors.mauve[7]'),
+            '--tw-prose-td-borders': theme('colors.mauve[6]'),
+            '--tw-prose-invert-body': theme('colors.mauve[12]'),
+            '--tw-prose-invert-headings': theme('colors.mauve[12]'),
+            '--tw-prose-invert-lead': theme('colors.mauve[11]'),
+            '--tw-prose-invert-links': theme('colors.mauve[12]'),
+            '--tw-prose-invert-bold': theme('colors.mauve[12]'),
+            '--tw-prose-invert-counters': theme('colors.mauve[11]'),
+            '--tw-prose-invert-bullets': theme('colors.mauve[7]'),
+            '--tw-prose-invert-hr': theme('colors.mauve[6]'),
+            '--tw-prose-invert-quotes': theme('colors.mauve[12]'),
+            '--tw-prose-invert-quote-borders': theme('colors.mauve[6]'),
+            '--tw-prose-invert-captions': theme('colors.mauve[11]'),
+            '--tw-prose-invert-code': theme('colors.mauve[12]'),
+            '--tw-prose-invert-pre-code': theme('colors.mauve[12]'),
+            '--tw-prose-invert-pre-bg': theme('colors.mauve[3]'),
+            '--tw-prose-invert-th-borders': theme('colors.mauve[7]'),
+            '--tw-prose-invert-td-borders': theme('colors.mauve[6]'),
+          },
+        },
+      }),
+    },
+  },
+  plugins: [require('windy-radix-palette'), require('@tailwindcss/typography')],
 };

@@ -1,0 +1,44 @@
+---
+import NavLink from '~/components/NavLink.astro';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { description, title } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <header
+    class="fixed top-0 inset-x-0 w-full bg-mauve-1 z-20 shadow-sm shadow-mauve-6"
+  >
+    <div class="mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="font-medium">windy-radix-palette</a>
+        <!-- TODO: Theme toggle, menu -->
+      </div>
+    </div>
+  </header>
+  <div class="flex pt-16">
+    <aside class="hidden lg:block fixed w-[250px]">
+      <nav class="px-2 py-3">
+        <ul>
+          <li>
+            <NavLink href="/docs/getting-started">Getting Started</NavLink>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="flex-1 max-w-full lg:pl-[250px] pt-8 lg:pt-12">
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header>
+          <h1 class="text-3xl font-medium mb-2">{title}</h1>
+          <p class="text-mauve-11 text-lg mb-12">{description}</p>
+        </header>
+        <slot />
+      </main>
+    </div>
+  </div>
+</BaseLayout>

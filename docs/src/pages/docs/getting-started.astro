@@ -1,0 +1,40 @@
+---
+import StepList from '~/components/StepList.astro';
+import StepListItem from '~/components/StepListItem.astro';
+import DocsLayout from '~/layouts/DocsLayout.astro';
+---
+
+<DocsLayout
+  title="Getting Started"
+  description="How to install and use windy-radix-palette"
+>
+  <StepList>
+    <StepListItem heading="Installation">
+      <div class="prose">
+        <p>
+          Install <code>windy-radix-palette</code> and its peer dependencies using
+          your package manager of choice.
+        </p>
+        <pre><code>npm install --save-dev windy-radix-palette @radix-ui/colors</code></pre>
+      </div>
+    </StepListItem>
+    <StepListItem heading="Configuration">
+      <div class="prose">
+        <p>Add the plugin to your <code>tailwind.config.js</code> file.</p>
+        <pre><code>{
+            `module.exports = {
+  plugins: [require('windy-radix-palette')]
+};`}</code></pre>
+      </div>
+    </StepListItem>
+    <StepListItem heading="Usage">
+      <div class="prose">
+        <p>
+          Tailwind classes for Radix Colors should now be available for use in
+          your markup!
+        </p>
+        <pre><code>{`<button class="bg-tomato-3 text-tomato-11">Button</button>`}</code></pre>
+      </div>
+    </StepListItem>
+  </StepList>
+</DocsLayout>
