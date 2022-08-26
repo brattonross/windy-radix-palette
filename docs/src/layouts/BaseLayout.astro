@@ -33,8 +33,10 @@ const { description, title } = Astro.props;
       })();
       if (theme === 'light') {
         document.documentElement.classList.remove('dark');
+        document.documentElement.style.colorScheme = 'light';
       } else {
         document.documentElement.classList.add('dark');
+        document.documentElement.style.colorScheme = 'dark';
       }
       window.localStorage.setItem(key, theme);
     </script>

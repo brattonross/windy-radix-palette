@@ -3,12 +3,6 @@ import * as React from 'react';
 const THEME_STORAGE_KEY = 'windy-radix-palette-theme';
 
 export function ThemeToggleButton() {
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const [theme, setTheme] = React.useState(
     localStorage.getItem(THEME_STORAGE_KEY) ?? 'light'
   );
@@ -19,19 +13,17 @@ export function ThemeToggleButton() {
   React.useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
     }
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
-  if (!isMounted) {
-    return null;
-  }
-
   return (
     <button
-      className="inline-flex items-center justify-center text-mauve-12 rounded-md h-6 w-6 hover:bg-mauve-4 focus:outline-none focus:ring-2 focus:ring-mauve-7"
+      className="inline-flex items-center justify-center text-mauve-12 rounded-md h-[25px] w-[25px] hover:bg-mauve-4 focus:outline-none focus:ring-2 focus:ring-mauve-7"
       title="Toggle theme"
       onClick={handleClick}
     >

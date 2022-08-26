@@ -1,5 +1,8 @@
 ---
-import NavLink from '~/components/NavLink.astro';
+import { MobileMenu } from '~/components/MobileMenu';
+import { NavLink } from '~/components/NavLink';
+import { ThemeToggleButton } from '~/components/ThemeToggleButton';
+import { routes } from '~/lib/routes';
 import BaseLayout from './BaseLayout.astro';
 
 export interface Props {
@@ -17,7 +20,27 @@ const { description, title } = Astro.props;
     <div class="mx-auto px-4">
       <div class="flex items-center justify-between h-16">
         <a href="/" class="font-medium">windy-radix-palette</a>
-        <!-- TODO: Theme toggle, menu -->
+        <div class="flex gap-3">
+          <ThemeToggleButton client:load />
+          <MobileMenu client:load>
+            <div class="pt-6 px-4">
+              <ul>
+                {
+                  routes.map((route) => (
+                    <li>
+                      <NavLink
+                        href={route.slug}
+                        isActive={Astro.url.pathname === route.slug}
+                      >
+                        {route.label}
+                      </NavLink>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </MobileMenu>
+        </div>
       </div>
     </div>
   </header>
@@ -25,9 +48,18 @@ const { description, title } = Astro.props;
     <aside class="hidden lg:block fixed w-[250px]">
       <nav class="px-2 py-3">
         <ul>
-          <li>
-            <NavLink href="/docs/getting-started">Getting Started</NavLink>
-          </li>
+          {
+            routes.map((route) => (
+              <li>
+                <NavLink
+                  href={route.slug}
+                  isActive={Astro.url.pathname === route.slug}
+                >
+                  {route.label}
+                </NavLink>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </aside>
