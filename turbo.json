@@ -3,13 +3,10 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "index.js", "colors.js", "*.css"]
+      "outputs": ["dist/**"]
     },
     "dev": {
       "dependsOn": ["^build"],
-      "cache": false
-    },
-    "clean": {
       "cache": false
     }
   }

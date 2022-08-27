@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "url": "https://github.com/brattonross/windy-radix-palette",
-    "directory": "palette"
+    "directory": "packages/palette"
   },
   "publishConfig": {
     "access": "public"
