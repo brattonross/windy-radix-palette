@@ -1,0 +1,55 @@
+---
+import StepList from '~/components/StepList.astro';
+import StepListItem from '~/components/StepListItem.astro';
+import DocsLayout from '~/layouts/DocsLayout.astro';
+---
+
+<DocsLayout
+  title="Typography Plugin"
+  description="Radix Colors themes for Tailwind Typography"
+>
+  <div class="prose prose-mauve pb-8">
+    <p>
+      The typography plugin is an extension of the official Tailwind CSS
+      Typography plugin, which adds color themes for each of the gray scales
+      provided by Radix Colors.
+    </p>
+  </div>
+  <StepList>
+    <StepListItem heading="Installation">
+      <div class="prose prose-mauve">
+        <p>
+          Install <code>windy-radix-typogrpahy</code> and its peer dependencies using
+          your package manager of choice.
+        </p>
+        <p>
+          <strong>Note:</strong> This plugin relies on <code
+            >windy-radix-palette</code
+          > being installed and used in your Tailwind config.
+        </p>
+        <pre><code>npm install --save-dev windy-radix-typography @tailwindcss/typography</code></pre>
+      </div>
+    </StepListItem>
+    <StepListItem heading="Configuration">
+      <div class="prose prose-mauve">
+        <p>Add the plugin to your <code>tailwind.config.js</code> file.</p>
+        <pre><code>{`module.exports = {
+  plugins: [
+    require('windy-radix-palette'),
+    require('@tailwindcss/typography'),
+    require('windy-radix-typography')
+  ]
+};`}</code></pre>
+      </div>
+    </StepListItem>
+    <StepListItem heading="Basic Usage">
+      <div class="prose prose-mauve">
+        <p>
+          Prose themes for each of the Radix Colors grayscales should now be
+          available for use!
+        </p>
+        <pre><code>{`<div class="prose prose-slate">...</div>`}</code></pre>
+      </div>
+    </StepListItem>
+  </StepList>
+</DocsLayout>

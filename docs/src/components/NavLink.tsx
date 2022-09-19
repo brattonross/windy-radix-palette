@@ -20,7 +20,7 @@ export function NavLink({ isActive, ...props }: NavLinkProps) {
         'rounded-full',
         'select-none',
         'min-h-6',
-        'text-sm',
+        'text-xs',
         'transition-colors',
         'focus:ring-2',
         'focus:ring-violet-7',

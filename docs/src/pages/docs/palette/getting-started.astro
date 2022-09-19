@@ -8,6 +8,12 @@ import DocsLayout from '~/layouts/DocsLayout.astro';
   title="Getting Started"
   description="How to install and use windy-radix-palette"
 >
+  <div class="prose prose-mauve pb-8">
+    <p>
+      This Tailwind plugin adds colors to your Tailwind config for each of the
+      colors in the Radix Colors palette.
+    </p>
+  </div>
   <StepList>
     <StepListItem heading="Installation">
       <div class="prose prose-mauve">
@@ -30,7 +36,7 @@ import DocsLayout from '~/layouts/DocsLayout.astro';
       <div class="prose prose-mauve">
         <p>
           Tailwind classes for Radix Colors should now be available for use in
-          your markup!
+          your markup! e.g. <code>bg-blue-4</code>, <code>text-mauveA-11</code>
         </p>
         <pre><code>{`<button class="bg-tomato-3 text-tomato-11">Button</button>`}</code></pre>
       </div>
