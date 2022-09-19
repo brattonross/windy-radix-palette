@@ -2,7 +2,7 @@
 
 Brings [Radix Colors](https://www.radix-ui.com/colors) to [Tailwind](https://tailwindcss.com/).
 
-Features an automatic dark mode palette switch based on the presence of the `.dark` class.
+Features an automatic dark mode palette switch based on the presence of the `.dark` class, and [Typography plugin](#typography) which extends on the official `@tailwindcss/typography` plugin.
 
 ## Installation
 
@@ -56,6 +56,38 @@ Unlike in the default Tailwind palette, Radix Colors does not share a color pale
 This package embraces that philosophy by toggling between the palettes based on the presence of a `dark` class, so you only need to use a single class to support both light and dark mode.
 
 To toggle between light and dark mode, you will need to manually add the `dark` class to an element. See the [Tailwind docs on toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually) for more information.
+
+## Typography
+
+The typography plugin creates a set of themes for Tailwind Typography, based on the Radix Colors gray scales.
+
+### Installation
+
+```bash
+npm install --save-dev windy-radix-typography @tailwindcss/typography
+```
+
+### Usage
+
+Add it to your Tailwind config:
+
+```js
+module.exports = {
+  plugins: [
+    require('windy-radix-palette'),
+    require('@tailwindcss/typography'),
+    require('windy-radix-typography'),
+  ],
+};
+```
+
+Now you can use the prose themes in your markup:
+
+```html
+<div class="prose prose-mauve">...</div>
+```
+
+Check out the docs and demo [here](https://windy-radix-palette.vercel.app/docs/typography/getting-started).
 
 ## Attributions
 
