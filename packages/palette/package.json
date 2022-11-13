@@ -26,6 +26,6 @@
   },
   "devDependencies": {
     "@radix-ui/colors": "^0.1.8",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.2.4"
   }
 }
