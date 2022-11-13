@@ -1,15 +1,15 @@
 ---
 export interface Props {
-  heading: string;
+	heading: string;
 }
 
 const { heading } = Astro.props;
 ---
 
 <li
-  class="relative pl-10 pb-8 before:content-[counter(step)] before:absolute before:left-0 before:flex before:items-center before:justify-center before:w-[calc(1.375rem+1px)] before:h-[calc(1.375rem+1px)] before:text-[0.625rem] before:text-violet-11 before:font-bold before:rounded-full before:shadow-sm before:bg-violet-6 before:ring-1 before:ring-violet-6"
-  style="counter-increment: step 1;"
+	class="relative pl-10 pb-8 before:content-[counter(step)] before:absolute before:left-0 before:flex before:items-center before:justify-center before:w-[calc(1.375rem+1px)] before:h-[calc(1.375rem+1px)] before:text-[0.625rem] before:text-violet-11 before:font-bold before:rounded-full before:shadow-sm before:bg-violet-6 before:ring-1 before:ring-violet-6"
+	style="counter-increment: step 1;"
 >
-  <h4 class="text-sm leading-6 font-semibold mb-2">{heading}</h4>
-  <slot />
+	<h4 class="text-sm leading-6 font-semibold mb-2">{heading}</h4>
+	<slot />
 </li>

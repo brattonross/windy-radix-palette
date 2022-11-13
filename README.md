@@ -16,7 +16,7 @@ Add the plugin to your Tailwind config:
 
 ```js
 module.exports = {
-  plugins: [require('windy-radix-palette')],
+	plugins: [require("windy-radix-palette")],
 };
 ```
 
@@ -33,19 +33,19 @@ Then you can use the classes in your markup!
 By default, this plugin will add CSS properties for **all** of the available Radix Colors. If you would rather only include the properties for colors that you are actually using, you can pass these as an option to the plugin:
 
 ```js
-const radixColors = require('@radix-ui/colors');
+const radixColors = require("@radix-ui/colors");
 
 module.exports = {
-  plugins: [
-    require('windy-radix-palette')({
-      colors: {
-        mauveA: radixColors.mauveA,
-        mauveDarkA: radixColors.mauveDarkA,
-        red: radixColors.red,
-        redDark: radixColors.redDark,
-      },
-    }),
-  ],
+	plugins: [
+		require("windy-radix-palette")({
+			colors: {
+				mauveA: radixColors.mauveA,
+				mauveDarkA: radixColors.mauveDarkA,
+				red: radixColors.red,
+				redDark: radixColors.redDark,
+			},
+		}),
+	],
 };
 ```
 
@@ -73,11 +73,11 @@ Add it to your Tailwind config:
 
 ```js
 module.exports = {
-  plugins: [
-    require('windy-radix-palette'),
-    require('@tailwindcss/typography'),
-    require('windy-radix-typography'),
-  ],
+	plugins: [
+		require("windy-radix-palette"),
+		require("@tailwindcss/typography"),
+		require("windy-radix-typography"),
+	],
 };
 ```
 

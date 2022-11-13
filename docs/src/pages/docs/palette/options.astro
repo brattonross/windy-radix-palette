@@ -1,20 +1,20 @@
 ---
-import DocsLayout from '~/layouts/DocsLayout.astro';
+import DocsLayout from "~/layouts/DocsLayout.astro";
 ---
 
 <DocsLayout
-  title="Options"
-  description="Plugin options for windy-radix-palette"
+	title="Options"
+	description="Plugin options for windy-radix-palette"
 >
-  <div class="prose prose-mauve prose-headings:font-medium">
-    <h2>Colors</h2>
-    <p>
-      By default, CSS properties will be created for <strong>all</strong> colors
-      from the version of Radix Colors that is installed in your project. If you
-      would rather only include the properties for colors that you are planning to
-      use, you can pass these as an option to the plugin.
-    </p>
-    <pre><code>{`const radixColors = require('@radix-ui/colors');
+	<div class="prose prose-mauve prose-headings:font-medium">
+		<h2>Colors</h2>
+		<p>
+			By default, CSS properties will be created for <strong>all</strong> colors
+			from the version of Radix Colors that is installed in your project. If you
+			would rather only include the properties for colors that you are planning to
+			use, you can pass these as an option to the plugin.
+		</p>
+		<pre><code>{`const radixColors = require('@radix-ui/colors');
 
 module.exports = {
   plugins: [
@@ -28,5 +28,5 @@ module.exports = {
     }),
   ],
 };`}</code></pre>
-  </div>
+	</div>
 </DocsLayout>

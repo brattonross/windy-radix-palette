@@ -1,26 +1,18 @@
 {
-  "private": true,
-  "name": "windy-radix-palette-monorepo",
-  "repository": "https://github.com/brattonross/windy-radix-palette",
-  "author": "Ross Bratton <bratton.ross@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "clean": "turbo run clean",
-    "format": "prettier --write './**/*.{js,cjs,mjs,ts,tsx,md,astro}'"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "tailwindcss"
-      ]
-    }
-  },
-  "devDependencies": {
-    "prettier": "^2.7.1",
-    "prettier-plugin-astro": "^0.7.0",
-    "prettier-plugin-tailwindcss": "^0.1.13",
-    "turbo": "^1.6.3"
-  }
+	"private": true,
+	"name": "windy-radix-palette-monorepo",
+	"repository": "https://github.com/brattonross/windy-radix-palette",
+	"author": "Ross Bratton <bratton.ross@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"format": "prettier --plugin-search-dir=. --ignore-path=.gitignore --write './**/*.{js,cjs,mjs,ts,tsx,md,astro}'"
+	},
+	"devDependencies": {
+		"prettier": "^2.7.1",
+		"prettier-plugin-astro": "^0.7.0",
+		"prettier-plugin-tailwindcss": "^0.1.13",
+		"turbo": "^1.6.3"
+	}
 }
