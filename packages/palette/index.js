@@ -13,11 +13,24 @@ const windyRadixPalette = plugin.withOptions(
       }
     }
 
-    return ({ addBase }) => {
-      addBase({
-        ':root': rootColors,
-        '.dark': darkModeColors,
-      });
+    return ({ addBase, config }) => {
+      const [darkMode, className = '.dark'] = [].concat(
+        config('darkMode', 'media')
+      );
+
+      if (darkMode === 'class') {
+        addBase({
+          ':root': rootColors,
+          [className]: darkModeColors,
+        });
+      } else {
+        addBase({
+          ':root': rootColors,
+          '@media (prefers-color-scheme: dark)': {
+            ':root': darkModeColors,
+          },
+        });
+      }
     };
   },
   ({ colors = radix } = {}) => {
