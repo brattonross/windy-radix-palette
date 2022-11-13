@@ -2,7 +2,7 @@
 
 Brings [Radix Colors](https://www.radix-ui.com/colors) to [Tailwind](https://tailwindcss.com/).
 
-Features an automatic dark mode palette switch based on the presence of the `.dark` class, and [Typography plugin](#typography) which extends on the official `@tailwindcss/typography` plugin.
+Features an automatic dark mode palette switch and [Typography plugin](#typography).
 
 ## Installation
 
@@ -51,11 +51,12 @@ module.exports = {
 
 ## Dark mode
 
-Unlike in the default Tailwind palette, Radix Colors does not share a color palette between light and dark mode. The palettes are designed to be used exclusively in their associated mode.
+Thanks to the design of the Radix Colors palettes, you don't actually need to do anything to make dark mode work! The colors in this palette will automatically switch to the light/dark variant based on your Tailwind dark mode settings:
 
-This package embraces that philosophy by toggling between the palettes based on the presence of a `dark` class, so you only need to use a single class to support both light and dark mode.
+- When `darkMode` is not set, or is set to `'media'`, the palette will change based on the user's preferred color scheme ([`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme))
+- When `darkMode` is set to `'class'`, the palette will change based on the presence of the dark mode selector (defaults to `.dark`), note that you can [customize the dark mode selector](https://tailwindcss.com/docs/dark-mode#customizing-the-class-name) if required
 
-To toggle between light and dark mode, you will need to manually add the `dark` class to an element. See the [Tailwind docs on toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually) for more information.
+Unlike the default Tailwind palette, Radix Colors come in light and dark variants, and the palettes are meant to be used only in light and dark mode respectively (in order to meet WCAG color contrast guidelines). This means that you don't need to prefix any of your classes with `dark:`&mdash;the palettes are designed to [_just work_](https://www.youtube.com/watch?v=aAwaxTGnkSk) when switching between light and dark mode.
 
 ## Typography
 
@@ -91,4 +92,4 @@ Check out the docs and demo [here](https://windy-radix-palette.vercel.app/docs/t
 
 ## Attributions
 
-[Radix UI](https://github.com/radix-ui) team for creating this wonderful color palette!
+- [Radix UI](https://github.com/radix-ui) team for creating these wonderful color palettes
