@@ -1,31 +1,31 @@
 {
-  "name": "windy-radix-palette",
-  "version": "0.2.0",
-  "description": "Bring Radix Colors to Tailwind CSS",
-  "main": "index.js",
-  "repository": {
-    "url": "https://github.com/brattonross/windy-radix-palette",
-    "directory": "packages/palette"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "tailwindcss",
-    "plugin",
-    "radix-ui"
-  ],
-  "files": [
-    "index.js"
-  ],
-  "author": "Ross Bratton <bratton.ross@gmail.com>",
-  "license": "MIT",
-  "peerDependencies": {
-    "@radix-ui/colors": ">=0.1.0",
-    "tailwindcss": ">=3.0.0"
-  },
-  "devDependencies": {
-    "@radix-ui/colors": "^0.1.8",
-    "tailwindcss": "^3.2.4"
-  }
+	"name": "windy-radix-palette",
+	"version": "0.3.0",
+	"description": "Bring Radix Colors to Tailwind CSS",
+	"main": "index.js",
+	"repository": {
+		"url": "https://github.com/brattonross/windy-radix-palette",
+		"directory": "packages/palette"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"tailwindcss",
+		"plugin",
+		"radix-ui"
+	],
+	"files": [
+		"index.js"
+	],
+	"author": "Ross Bratton <bratton.ross@gmail.com>",
+	"license": "MIT",
+	"peerDependencies": {
+		"@radix-ui/colors": ">=0.1.0",
+		"tailwindcss": ">=3.0.0"
+	},
+	"devDependencies": {
+		"@radix-ui/colors": "^0.1.8",
+		"tailwindcss": "^3.2.4"
+	}
 }
