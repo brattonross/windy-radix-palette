@@ -15,7 +15,7 @@ export function MobileMenu({ children }: MobileMenuProps) {
 		<>
 			<button
 				type="button"
-				className="hover:bg-mauve-4 focus:bg-mauve-4 focus:ring-mauve-6 inline-flex h-[25px] w-[25px] items-center justify-center rounded-md bg-transparent focus:outline-none focus:ring-2 lg:hidden"
+				className="hover:bg-neutral-4 focus:bg-neutral-4 focus:ring-neutral-6 inline-flex h-[25px] w-[25px] items-center justify-center rounded-md bg-transparent focus:outline-none focus:ring-2 lg:hidden"
 				onClick={toggleIsOpen}
 			>
 				<svg
@@ -36,7 +36,7 @@ export function MobileMenu({ children }: MobileMenuProps) {
 
 			{isOpen ? (
 				<div className="fixed inset-0 mt-[65px] lg:hidden">
-					<div className="bg-mauve-1 h-full w-full">{children}</div>
+					<div className="bg-neutral-1 h-full w-full">{children}</div>
 				</div>
 			) : null}
 		</>

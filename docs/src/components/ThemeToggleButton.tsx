@@ -23,7 +23,7 @@ export function ThemeToggleButton() {
 
 	return (
 		<button
-			className="text-mauve-12 hover:bg-mauve-4 focus:ring-mauve-7 inline-flex h-[25px] w-[25px] items-center justify-center rounded-md focus:outline-none focus:ring-2"
+			className="text-hi-contrast hover:bg-neutral-4 focus:ring-neutral-7 inline-flex h-[25px] w-[25px] items-center justify-center rounded-md focus:outline-none focus:ring-2"
 			title="Toggle theme"
 			onClick={handleClick}
 		>

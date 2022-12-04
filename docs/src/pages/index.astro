@@ -10,11 +10,11 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 	</header>
 	<section class="w-full max-w-7xl mx-auto py-12 px-4">
 		<h1
-			class="mb-4 lg:text-center font-semibold text-mauve-12 tracking-tighter text-4xl lg:text-5xl"
+			class="mb-4 lg:text-center font-semibold text-hi-contrast tracking-tighter text-4xl lg:text-5xl"
 		>
 			Bring Radix Colors to Tailwind CSS
 		</h1>
-		<p class="mb-8 lg:text-center text-lg text-mauve-11">
+		<p class="mb-8 lg:text-center text-lg text-lo-contrast">
 			Improving the compatibility of Radix Colors and Tailwind CSS.
 		</p>
 		<div class="flex items-center lg:justify-center space-x-4">
@@ -53,7 +53,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			</a>
 			<a
 				href="https://github.com/brattonross/windy-radix-palette"
-				class="h-9 text-sm font-medium rounded-full px-4 bg-transparent inline-flex items-center space-x-2 hover:bg-mauve-4 text-mauve-11 focus:outline-none focus:ring-2 focus:ring-blue-7"
+				class="h-9 text-sm font-medium rounded-full px-4 bg-transparent inline-flex items-center space-x-2 hover:bg-neutral-4 text-lo-contrast focus:outline-none focus:ring-2 focus:ring-blue-7"
 				target="_blank"
 			>
 				<span>GitHub</span>
@@ -78,14 +78,14 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			<div></div>
 			{
 				[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => (
-					<div class="text-mauve-11 pb-2 text-center text-sm">{n}</div>
+					<div class="text-lo-contrast pb-2 text-center text-sm">{n}</div>
 				))
 			}
 
 			<!-- Neutrals -->
 
 			<!-- Gray -->
-			<div class="text-mauve-12 text-sm">Gray</div>
+			<div class="text-hi-contrast text-sm">Gray</div>
 			{
 				[
 					"bg-gray-1",
@@ -104,7 +104,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Mauve -->
-			<div class="text-mauve-12 text-sm">Mauve</div>
+			<div class="text-hi-contrast text-sm">Mauve</div>
 			{
 				[
 					"bg-mauve-1",
@@ -123,7 +123,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Slate -->
-			<div class="text-slate-12 text-sm">Slate</div>
+			<div class="text-hi-contrast text-sm">Slate</div>
 			{
 				[
 					"bg-slate-1",
@@ -142,7 +142,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Sage -->
-			<div class="text-slate-12 text-sm">Sage</div>
+			<div class="text-hi-contrast text-sm">Sage</div>
 			{
 				[
 					"bg-sage-1",
@@ -161,7 +161,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Olive -->
-			<div class="text-slate-12 text-sm">Olive</div>
+			<div class="text-hi-contrast text-sm">Olive</div>
 			{
 				[
 					"bg-olive-1",
@@ -180,7 +180,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Sand -->
-			<div class="text-slate-12 text-sm">Sand</div>
+			<div class="text-hi-contrast text-sm">Sand</div>
 			{
 				[
 					"bg-sand-1",
@@ -208,7 +208,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			<!-- White foreground colors -->
 
 			<!-- Tomato -->
-			<div class="text-slate-12 text-sm">Tomato</div>
+			<div class="text-hi-contrast text-sm">Tomato</div>
 			{
 				[
 					"bg-tomato-1",
@@ -227,7 +227,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Red -->
-			<div class="text-slate-12 text-sm">Red</div>
+			<div class="text-hi-contrast text-sm">Red</div>
 			{
 				[
 					"bg-red-1",
@@ -246,7 +246,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Crimson -->
-			<div class="text-slate-12 text-sm">Crimson</div>
+			<div class="text-hi-contrast text-sm">Crimson</div>
 			{
 				[
 					"bg-crimson-1",
@@ -265,7 +265,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Pink -->
-			<div class="text-slate-12 text-sm">Pink</div>
+			<div class="text-hi-contrast text-sm">Pink</div>
 			{
 				[
 					"bg-pink-1",
@@ -284,7 +284,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Plum -->
-			<div class="text-slate-12 text-sm">Plum</div>
+			<div class="text-hi-contrast text-sm">Plum</div>
 			{
 				[
 					"bg-plum-1",
@@ -303,7 +303,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Purple -->
-			<div class="text-slate-12 text-sm">Purple</div>
+			<div class="text-hi-contrast text-sm">Purple</div>
 			{
 				[
 					"bg-purple-1",
@@ -322,7 +322,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Violet -->
-			<div class="text-slate-12 text-sm">Violet</div>
+			<div class="text-hi-contrast text-sm">Violet</div>
 			{
 				[
 					"bg-violet-1",
@@ -341,7 +341,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Indigo -->
-			<div class="text-slate-12 text-sm">Indigo</div>
+			<div class="text-hi-contrast text-sm">Indigo</div>
 			{
 				[
 					"bg-indigo-1",
@@ -360,7 +360,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Blue -->
-			<div class="text-slate-12 text-sm">Blue</div>
+			<div class="text-hi-contrast text-sm">Blue</div>
 			{
 				[
 					"bg-blue-1",
@@ -379,7 +379,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Cyan -->
-			<div class="text-slate-12 text-sm">Cyan</div>
+			<div class="text-hi-contrast text-sm">Cyan</div>
 			{
 				[
 					"bg-cyan-1",
@@ -398,7 +398,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Teal -->
-			<div class="text-slate-12 text-sm">Teal</div>
+			<div class="text-hi-contrast text-sm">Teal</div>
 			{
 				[
 					"bg-teal-1",
@@ -417,7 +417,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Green -->
-			<div class="text-slate-12 text-sm">Green</div>
+			<div class="text-hi-contrast text-sm">Green</div>
 			{
 				[
 					"bg-green-1",
@@ -436,7 +436,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Grass -->
-			<div class="text-slate-12 text-sm">Grass</div>
+			<div class="text-hi-contrast text-sm">Grass</div>
 			{
 				[
 					"bg-grass-1",
@@ -455,7 +455,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Brown -->
-			<div class="text-slate-12 text-sm">Brown</div>
+			<div class="text-hi-contrast text-sm">Brown</div>
 			{
 				[
 					"bg-brown-1",
@@ -474,7 +474,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Orange -->
-			<div class="text-slate-12 text-sm">Orange</div>
+			<div class="text-hi-contrast text-sm">Orange</div>
 			{
 				[
 					"bg-orange-1",
@@ -502,7 +502,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			<!-- Bright colors, black foreground -->
 
 			<!-- Sky -->
-			<div class="text-slate-12 text-sm">Sky</div>
+			<div class="text-hi-contrast text-sm">Sky</div>
 			{
 				[
 					"bg-sky-1",
@@ -521,7 +521,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Mint -->
-			<div class="text-slate-12 text-sm">Mint</div>
+			<div class="text-hi-contrast text-sm">Mint</div>
 			{
 				[
 					"bg-mint-1",
@@ -540,7 +540,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Lime -->
-			<div class="text-slate-12 text-sm">Lime</div>
+			<div class="text-hi-contrast text-sm">Lime</div>
 			{
 				[
 					"bg-lime-1",
@@ -559,7 +559,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Yellow -->
-			<div class="text-slate-12 text-sm">Yellow</div>
+			<div class="text-hi-contrast text-sm">Yellow</div>
 			{
 				[
 					"bg-yellow-1",
@@ -578,7 +578,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Amber -->
-			<div class="text-slate-12 text-sm">Amber</div>
+			<div class="text-hi-contrast text-sm">Amber</div>
 			{
 				[
 					"bg-amber-1",
@@ -606,7 +606,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			<!-- Metals -->
 
 			<!-- Gold -->
-			<div class="text-slate-12 text-sm">Gold</div>
+			<div class="text-hi-contrast text-sm">Gold</div>
 			{
 				[
 					"bg-gold-1",
@@ -625,7 +625,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 			}
 
 			<!-- Bronze -->
-			<div class="text-slate-12 text-sm">Bronze</div>
+			<div class="text-hi-contrast text-sm">Bronze</div>
 			{
 				[
 					"bg-bronze-1",

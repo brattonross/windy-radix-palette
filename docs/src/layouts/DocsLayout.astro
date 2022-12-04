@@ -23,6 +23,10 @@ const routes = [
 				label: "Options",
 				slug: "/docs/palette/options",
 			},
+			{
+				label: "Aliasing",
+				slug: "/docs/palette/aliasing",
+			},
 		],
 	},
 	{
@@ -43,7 +47,7 @@ const routes = [
 
 <BaseLayout title={title} description={description}>
 	<header
-		class="fixed top-0 inset-x-0 w-full bg-mauve-1 z-20 shadow-sm shadow-mauve-6"
+		class="fixed top-0 inset-x-0 w-full bg-neutral-1 z-20 shadow-sm shadow-neutral-6"
 	>
 		<div class="mx-auto px-4">
 			<div class="flex items-center justify-between h-16">
@@ -113,7 +117,7 @@ const routes = [
 					<h1 class="text-3xl font-medium mb-2">{title}</h1>
 					{
 						description ? (
-							<p class="text-mauve-11 mb-8 text-lg">{description}</p>
+							<p class="text-lo-contrast mb-8 text-lg">{description}</p>
 						) : null
 					}
 				</header>

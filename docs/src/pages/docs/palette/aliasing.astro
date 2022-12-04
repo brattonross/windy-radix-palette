@@ -1,0 +1,147 @@
+---
+import DocsLayout from "~/layouts/DocsLayout.astro";
+---
+
+<DocsLayout
+	title="Aliasing"
+	description="Aliasing colors with windy-radix-palette"
+>
+	<div class="prose prose-mauve prose-headings:font-medium pb-8">
+		<h2>Semantic Aliases</h2>
+		<p>
+			It is generally considered a good practice to create semantic names for
+			the colors in your palette when building a website. Not only does this
+			help bring some more meaning to the use of the color, but it also makes it
+			easier to change usage of that color in the future.
+		</p>
+
+		<p>
+			To alias a color with windy-radix-palette, there are some helper functions
+			provided that can be accessed via the <code>windy-radix-palette/vars</code
+			> module:
+		</p>
+
+		<pre><code>{`// tailwind.config.js
+const { toRadixVar, toRadixVars } = require("windy-radix-palette/vars");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'hi-contrast': toRadixVar('slate', 12),
+
+        neutral: toRadixVars('slate'),
+        error: toRadixVars('tomato')
+      }
+    }
+  }
+};`}</code></pre>
+
+		<p>
+			All that is happening within these functions is mapping to CSS variables.
+			For instance, <code>toRadixVar('slate', 12)</code> returns <code
+				>var(--slate12)</code
+			>.
+		</p>
+
+		<p>
+			You can see an example of this kind of aliasing in <a
+				href="https://github.com/brattonross/windy-radix-palette/blob/main/docs/tailwind.config.cjs"
+				>the source for these docs</a
+			>.
+		</p>
+
+		<h2>Use case aliases</h2>
+		<p>
+			It is possible to alias a single color from a scale, in case you want to
+			give steps of the scale more meaning.
+		</p>
+
+		<pre><code>{`// tailwind.config.js
+const { toRadixVar } = require("windy-radix-palette/vars");
+
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        accentBase: toRadixVar('blue', 1),
+        accentBgSubtle: toRadixVar('blue', 2),
+        accentBg: toRadixVar('blue', 3),
+        accentBgHover: toRadixVar('blue', 4),
+        accentBgActive: toRadixVar('blue', 5),
+        accentLine: toRadixVar('blue', 6),
+        accentBorder: toRadixVar('blue', 7),
+        accentBorderHover: toRadixVar('blue', 8),
+        accentSolid: toRadixVar('blue', 9),
+        accentSolidHover: toRadixVar('blue', 10),
+        accentText: toRadixVar('blue', 11),
+        accentTextContrast: toRadixVar('blue', 12),
+
+        successBase: toRadixVar('green', 1),
+        successBgSubtle: toRadixVar('green', 2),
+
+        warningBase: toRadixVar('yellow', 1),
+        warningBgSubtle: toRadixVar('yellow', 2),
+
+        dangerBase: toRadixVar('red', 1),
+        dangerBgSubtle: toRadixVar('red', 2),
+      }
+    }
+  }
+};`}</code></pre>
+
+		<h2>Mutable aliases</h2>
+
+		<p>
+			When designing for both light and dark mode, you might find that you want
+			to map a variable to one color in light mode, and another color in dark
+			mode.
+		</p>
+
+		<p>
+			This isn't currently possible to do entirely in the Tailwind config file,
+			but you can achieve the same result in a couple of different ways:
+		</p>
+
+		<h3>CSS variables</h3>
+
+		<p>Create a CSS variable that changes based on your theme:</p>
+
+		<pre><code>{`@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-app-background: #fff;
+  }
+
+  .dark {
+    --color-app-background: var(--mauve1);
+  }
+}`}</code></pre>
+
+		<p>Then reference that variable in your Tailwind config:</p>
+
+		<pre><code>{`// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'app-background': 'var(--color-app-background)',
+      }
+    }
+  }
+};`}</code></pre>
+
+		<h3>Using <code>dark:</code> prefix</h3>
+
+		<p>
+			If your use case is a one-off, you can use the <code>dark:</code> prefix from
+			Tailwind. For example, the following code would result in a white background
+			in light mode, and a dark background in dark mode:
+		</p>
+
+		<pre><code>{`<div class="bg-white dark:bg-slate-1">...</div>`}</code></pre>
+	</div>
+</DocsLayout>

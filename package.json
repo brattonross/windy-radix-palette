@@ -10,9 +10,9 @@
 		"format": "prettier --plugin-search-dir=. --ignore-path=.gitignore --write './**/*.{js,cjs,mjs,ts,tsx,md,astro}'"
 	},
 	"devDependencies": {
-		"prettier": "^2.7.1",
+		"prettier": "^2.8.0",
 		"prettier-plugin-astro": "^0.7.0",
-		"prettier-plugin-tailwindcss": "^0.1.13",
+		"prettier-plugin-tailwindcss": "^0.2.0",
 		"turbo": "^1.6.3"
 	}
 }

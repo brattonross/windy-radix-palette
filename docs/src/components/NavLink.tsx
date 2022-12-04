@@ -13,7 +13,7 @@ export function NavLink({ isActive, ...props }: NavLinkProps) {
 			className={clsx(
 				"flex",
 				"items-center",
-				"text-mauve-12",
+				"text-hi-contrast",
 				"py-2",
 				"px-4",
 				"bg-transparent",
