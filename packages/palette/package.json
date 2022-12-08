@@ -16,7 +16,8 @@
 		"radix-ui"
 	],
 	"files": [
-		"index.js"
+		"index.js",
+		"vars.js"
 	],
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
