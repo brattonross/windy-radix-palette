@@ -49,6 +49,25 @@ module.exports = {
 };
 ```
 
+### Root Key
+
+By default, this plugin will add CSS Variable to the `:root` identifier (which points to the root of the current DOM frame). To switch the rootKey to `:host` for example when working with shadowDOM, pass a rootKey option to the plugin:
+
+
+default, this plugin will add CSS properties for **all** of the available Radix Colors. If you would rather only include the properties for colors that you are actually using, you can pass these as an option to the plugin:
+
+```js
+
+module.exports = {
+	plugins: [
+		require("windy-radix-palette")({
+				rootKey: ":host",
+			},
+		}),
+	],
+};
+```
+
 ## Dark mode
 
 Thanks to the design of the Radix Colors palettes, you don't actually need to do anything to make dark mode work! The colors in this palette will automatically switch to the light/dark variant based on your Tailwind dark mode settings:
