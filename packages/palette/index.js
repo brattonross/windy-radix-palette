@@ -2,7 +2,7 @@ const radix = require("@radix-ui/colors");
 const plugin = require("tailwindcss/plugin");
 
 const windyRadixPalette = plugin.withOptions(
-	({ colors = radix } = {}) => {
+	({ colors = radix, rootKey = ":root" } = {}) => {
 		let rootColors = {};
 		let darkModeColors = {};
 
@@ -20,12 +20,12 @@ const windyRadixPalette = plugin.withOptions(
 
 			if (darkMode === "class") {
 				addBase({
-					":root": rootColors,
+					[rootKey]: rootColors,
 					[className]: darkModeColors,
 				});
 			} else {
 				addBase({
-					":root": rootColors,
+					[rootKey]: rootColors,
 					"@media (prefers-color-scheme: dark)": {
 						":root": darkModeColors,
 					},
