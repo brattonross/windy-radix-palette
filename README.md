@@ -49,19 +49,15 @@ module.exports = {
 };
 ```
 
-### Root Key
+### Root Selector
 
-By default, this plugin will add CSS Variable to the `:root` identifier (which points to the root of the current DOM frame). To switch the rootKey to `:host` for example when working with shadowDOM, pass a rootKey option to the plugin:
-
-
-default, this plugin will add CSS properties for **all** of the available Radix Colors. If you would rather only include the properties for colors that you are actually using, you can pass these as an option to the plugin:
+By default, this plugin will add CSS properties to the `:root` CSS [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:root). The selector where these properties are placed can be customized via the `rootSelector` option. For example, when working with shadow DOM you might want to put the properties under the `:host` selector:
 
 ```js
-
 module.exports = {
 	plugins: [
 		require("windy-radix-palette")({
-				rootKey: ":host",
+				rootSelector: ":host",
 			},
 		}),
 	],
