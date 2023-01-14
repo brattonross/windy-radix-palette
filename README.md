@@ -49,6 +49,21 @@ module.exports = {
 };
 ```
 
+### Root Selector
+
+By default, this plugin will add CSS properties to the `:root` CSS [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:root). The selector where these properties are placed can be customized via the `rootSelector` option. For example, when working with shadow DOM you might want to put the properties under the `:host` selector:
+
+```js
+module.exports = {
+	plugins: [
+		require("windy-radix-palette")({
+				rootSelector: ":host",
+			},
+		}),
+	],
+};
+```
+
 ## Dark mode
 
 Thanks to the design of the Radix Colors palettes, you don't actually need to do anything to make dark mode work! The colors in this palette will automatically switch to the light/dark variant based on your Tailwind dark mode settings:
