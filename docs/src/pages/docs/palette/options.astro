@@ -6,7 +6,7 @@ import DocsLayout from "~/layouts/DocsLayout.astro";
 	title="Options"
 	description="Plugin options for windy-radix-palette"
 >
-	<div class="prose prose-mauve prose-headings:font-medium">
+	<div class="prose prose-mauve prose-headings:font-medium pb-8">
 		<h2>Colors</h2>
 		<p>
 			By default, CSS properties will be created for <strong>all</strong> colors
@@ -25,6 +25,26 @@ module.exports = {
         red: radixColors.red,
         redDark: radixColors.redDark,
       },
+    }),
+  ],
+};`}</code></pre>
+	</div>
+	<div class="prose prose-mauve prose-headings:font-medium pb-8">
+		<h2>Root Selector</h2>
+		<p>
+			By default, this plugin will add CSS properties to the <code>:root</code> CSS
+			<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:root"
+				>pseudo-class</a
+			>. The selector where these properties are placed can be customized via
+			the <code>rootSelector</code> option. For example, when working with shadow
+			DOM you might want to put the properties under the <code>:host</code> selector.
+		</p>
+		<pre><code>{`const radixColors = require('@radix-ui/colors');
+
+module.exports = {
+  plugins: [
+    require('windy-radix-palette')({
+      rootSelector: ':host'
     }),
   ],
 };`}</code></pre>
