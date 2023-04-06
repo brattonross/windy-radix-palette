@@ -6,7 +6,7 @@ const windyRadixPalette = plugin.withOptions(
     let rootColors = {};
     let darkModeColors = {};
 
-    for (const [colorName, colorObj] of Object.entries(radixColors)) {
+    for (const [colorName, colorObj] of Object.entries(colors)) {
       const colorMap = colorName.includes("Dark") ? darkModeColors : rootColors;
       for (const [key, value] of Object.entries(colorObj)) {
         if (key.includes("A")) {
@@ -43,7 +43,7 @@ const windyRadixPalette = plugin.withOptions(
   ({ colors = radix } = {}) => {
     const themeColors = {};
 
-    for (const [colorName, colorObj] of Object.entries(radixColors)) {
+    for (const [colorName, colorObj] of Object.entries(colors)) {
       if (colorName.includes("Dark")) {
         continue;
       }
