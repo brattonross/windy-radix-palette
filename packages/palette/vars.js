@@ -5,7 +5,7 @@
  * @returns {string} A string representing the CSS variable for this color.
  */
 function toRadixVar(color, n) {
-	return `var(--${color}${n})`;
+	return `hsl(var(--${color}${n}) / <alpha-value>)`;
 }
 
 const scale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
