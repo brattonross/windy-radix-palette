@@ -3,6 +3,7 @@
 	"version": "0.6.0",
 	"description": "Bring Radix Colors to Tailwind CSS",
 	"main": "index.js",
+	"types": "index.d.ts",
 	"repository": {
 		"url": "https://github.com/brattonross/windy-radix-palette",
 		"directory": "packages/palette"
@@ -17,7 +18,9 @@
 	],
 	"files": [
 		"index.js",
-		"vars.js"
+		"index.d.ts",
+		"vars.js",
+		"vars.d.ts"
 	],
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
