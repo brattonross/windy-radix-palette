@@ -1,4 +1,5 @@
 const { toRadixVar, toRadixVars } = require("windy-radix-palette/vars");
+const starlight = require("@astrojs/starlight-tailwind");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,14 +10,20 @@ module.exports = {
 			colors: {
 				"hi-contrast": toRadixVar("mauve", 12),
 				"lo-contrast": toRadixVar("mauve", 11),
-
 				neutral: toRadixVars("mauve"),
 			},
 		},
 	},
+	safelist: [
+		{
+			pattern:
+				/bg-(gray|mauve|slate|sage|olive|sand|tomato|red|ruby|crimson|pink|plum|purple|violet|iris|indigo|blue|cyan|teal|jade|green|grass|bronze|gold|brown|orange|amber|yellow|lime|mint|sky)-(1|2|3|4|5|6|7|8|9|10|11|12)/,
+		},
+	],
 	plugins: [
 		require("windy-radix-palette"),
 		require("@tailwindcss/typography"),
 		require("windy-radix-typography"),
+		starlight(),
 	],
 };

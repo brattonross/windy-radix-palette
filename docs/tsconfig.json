@@ -1,17 +1,10 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "importsNotUsedAsValues": "error",
-    "isolatedModules": true,
-    "jsx": "react",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "paths": {
-      "~/*": ["./src/*"]
-    },
-    "resolveJsonModule": true,
-    "strict": true,
-    "target": "ESNext"
-  }
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "astro/tsconfigs/strict",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["src/*"]
+        }
+    }
 }
