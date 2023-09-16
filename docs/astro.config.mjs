@@ -3,6 +3,7 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
+	site: "https://windy-radix-palette.vercel.app",
 	integrations: [
 		starlight({
 			title: "windy-radix-palette",
