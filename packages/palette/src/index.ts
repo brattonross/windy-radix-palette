@@ -10,11 +10,22 @@ const wrpPlugin = plugin.withOptions<PluginOptions>(
 	({ colors = radix, rootSelector = ":root" } = {}) => {
 		const lightColors: Record<string, string> = {};
 		const darkColors: Record<string, string> = {};
+		const lightP3Colors: Record<string, string> = {};
+		const darkP3Colors: Record<string, string> = {};
 
 		for (const [colorName, steps] of Object.entries(colors)) {
-			const map = colorName.includes("Dark") ? darkColors : lightColors;
+			let map = lightColors;
+			if (colorName.includes("P3")) {
+				map = colorName.includes("Dark") ? darkP3Colors : lightP3Colors;
+			} else if (colorName.includes("Dark")) {
+				map = darkColors;
+			}
+
 			for (const [key, value] of Object.entries(steps)) {
-				const color = key.includes("A") ? value : hexToRGBChannels(value);
+				const color =
+					key.includes("A") || colorName.includes("P3")
+						? value
+						: hexToRGBChannels(value);
 				map[`--${key}`] = color;
 			}
 		}
@@ -26,12 +37,26 @@ const wrpPlugin = plugin.withOptions<PluginOptions>(
 				addBase({
 					[rootSelector]: lightColors,
 					[className]: darkColors,
+					"@media (color-gamut: p3)": {
+						[rootSelector]: lightP3Colors,
+						"@media (prefers-color-scheme: dark)": {
+							[className]: darkP3Colors,
+						},
+					},
 				});
 			} else {
 				addBase({
 					[rootSelector]: lightColors,
 					"@media (prefers-color-scheme: dark)": {
 						[rootSelector]: darkColors,
+					},
+					"@supports (color: color(display-p3 1 1 1))": {
+						"@media (color-gamut: p3)": {
+							[rootSelector]: lightP3Colors,
+							"@media (prefers-color-scheme: dark)": {
+								[rootSelector]: darkP3Colors,
+							},
+						},
 					},
 				});
 			}
