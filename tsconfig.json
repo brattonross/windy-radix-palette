@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json.schemastore.org/tsconfig.json",
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"allowSyntheticDefaultImports": true,
+		"downlevelIteration": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["esnext"],
+		"module": "esnext",
+		"moduleDetection": "force",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext",
+		"types": ["bun-types"],
+		"verbatimModuleSyntax": true
+	}
+}

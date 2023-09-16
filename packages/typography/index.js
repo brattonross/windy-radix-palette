@@ -13,7 +13,7 @@ module.exports = plugin.withOptions(
 						function getThemeColor(color, step) {
 							return theme(`colors.${color}[${step}]`).replace(
 								"<alpha-value>",
-								"1"
+								"1",
 							);
 						}
 
@@ -61,5 +61,5 @@ module.exports = plugin.withOptions(
 				},
 			},
 		};
-	}
+	},
 );

@@ -1,16 +1,16 @@
-const { toRadixVar, toRadixVars } = require("windy-radix-palette/vars");
-const starlight = require("@astrojs/starlight-tailwind");
+import starlight from "@astrojs/starlight-tailwind";
+import radix, { alias } from "windy-radix-palette";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	darkMode: "class",
 	theme: {
 		extend: {
 			colors: {
-				"hi-contrast": toRadixVar("mauve", 12),
-				"lo-contrast": toRadixVar("mauve", 11),
-				neutral: toRadixVars("mauve"),
+				"hi-contrast": alias("mauve", 12),
+				"lo-contrast": alias("mauve", 11),
+				neutral: alias("mauve"),
 			},
 		},
 	},
@@ -21,7 +21,7 @@ module.exports = {
 		},
 	],
 	plugins: [
-		require("windy-radix-palette"),
+		radix(),
 		require("@tailwindcss/typography"),
 		require("windy-radix-typography"),
 		starlight(),

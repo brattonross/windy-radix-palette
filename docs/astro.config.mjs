@@ -13,27 +13,27 @@ export default defineConfig({
 					items: [
 						{
 							label: "Getting started",
-							link: "/palette/getting-started"
+							link: "/palette/getting-started",
 						},
 						{
 							label: "Aliasing",
-							link: "/palette/aliasing"
+							link: "/palette/aliasing",
 						},
 						{
 							label: "Options",
-							link: "/palette/options"
-						}
-					]
+							link: "/palette/options",
+						},
+					],
 				},
 				{
 					label: "Typography",
 					items: [
 						{
 							label: "Getting started",
-							link: "/typography/getting-started"
+							link: "/typography/getting-started",
 						},
-					]
-				}
+					],
+				},
 			],
 		}),
 		tailwind({

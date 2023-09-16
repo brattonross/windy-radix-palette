@@ -140,8 +140,8 @@ const COLORS = [
 					Bring Radix Colors to Tailwind CSS
 				</h1>
 				<p class="text-lo-contrast m-0 text-base md:text-xl">
-					An unofficial package to improve the compatibility of Radix Colors and
-					Tailwind CSS.
+					An unofficial package to improve the compatibility of Radix
+					Colors and Tailwind CSS.
 				</p>
 				<div class="flex items-center space-x-4">
 					<a
@@ -205,7 +205,9 @@ const COLORS = [
 				<div class="hidden md:block"></div>
 				{
 					STEPS.map((n) => (
-						<div class="text-lo-contrast pb-2 text-center text-sm">{n}</div>
+						<div class="text-lo-contrast pb-2 text-center text-sm">
+							{n}
+						</div>
 					))
 				}
 				{
@@ -215,7 +217,9 @@ const COLORS = [
 								{color.label}
 							</div>
 							{STEPS.map((step) => (
-								<div class={`bg-${color.name}-${step} h-[35px]`} />
+								<div
+									class={`bg-${color.name}-${step} h-[35px]`}
+								/>
 							))}
 						</>
 					))
