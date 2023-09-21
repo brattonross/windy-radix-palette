@@ -105,6 +105,80 @@ Now you can use the prose themes in your markup:
 
 Check out the docs and demo [here](https://windy-radix-palette.vercel.app/docs/typography/getting-started).
 
+## Forms
+
+Here is an example of a simple plugin that makes use of the Radix Colors palette to override the `@tailwindcss/forms` colors:
+
+```js
+// tailwind.config.js
+const plugin = require("tailwindcss/plugin");
+
+function resolveColor(color, opacityVariableName) {
+  return color.replace('<alpha-value>', `var(${opacityVariableName}, 1)`)
+}
+
+module.exports = {
+	// ...
+	plugins: [
+		require("windy-radix-palette"),
+		require("@tailwindcss/forms"),
+		plugin(({ addBase, theme }) => {
+			addBase({
+				[[
+					"[type='text']",
+					"input:where(:not([type]))",
+					"[type='email']",
+					"[type='url']",
+					"[type='password']",
+					"[type='number']",
+					"[type='date']",
+					"[type='datetime-local']",
+					"[type='month']",
+					"[type='search']",
+					"[type='tel']",
+					"[type='time']",
+					"[type='week']",
+					"[multiple]",
+					"textarea",
+					"select",
+				]]: {
+					borderColor: resolveColor(
+						theme("colors.slate.7"),
+						"--tw-border-opacity",
+					),
+					"&:focus": {
+						"--tw-ring-color": resolveColor(
+							theme("colors.blue.7"),
+							"--tw-ring-opacity",
+						),
+						"border-color": resolveColor(
+							theme("colors.blue.7"),
+							"--tw-border-opacity",
+						),
+					},
+				},
+				[["input::placeholder", "textarea::placeholder"]]: {
+					color: resolveColor(theme("colors.slate.9"), "--tw-text-opacity"),
+				},
+				[[`[type='checkbox']`, `[type='radio']`]]: {
+					color: resolveColor(theme("colors.blue.9"), "--tw-text-opacity"),
+					borderColor: resolveColor(
+						theme("colors.slate.7"),
+						"--tw-border-opacity",
+					),
+					"&:focus": {
+						"--tw-ring-color": resolveColor(
+							theme("colors.blue.7"),
+							"--tw-ring-opacity",
+						),
+					},
+				},
+			});
+		}),
+	],
+};
+```
+
 ## Attributions
 
 - [Radix UI](https://github.com/radix-ui) team for creating these wonderful color palettes
