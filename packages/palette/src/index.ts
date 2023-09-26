@@ -114,15 +114,25 @@ export function alias(
 	color: LooseRadixColor,
 	step?: RadixStep,
 ): string | Record<string, string> {
-	if (step) {
+	if (color.includes("A") || color.includes("P3")) {
+		if (step) {
+			return `var(--${color}${step})`;
+		} else {
+			const out: Record<string, string> = {};
+			for (let i = 0; i < steps.length; i++) {
+				out[steps[i]] = `var(--${color}${steps[i]})`;
+			}
+			return out;
+		}
+	} else if (step) {
 		return `rgb(var(--${color}${step}) / <alpha-value>)`;
+	} else {
+		const out: Record<string, string> = {};
+		for (let i = 0; i < steps.length; i++) {
+			out[steps[i]] = `rgb(var(--${color}${steps[i]}) / <alpha-value>)`;
+		}
+		return out;
 	}
-
-	const out: Record<string, string> = {};
-	for (let i = 0; i < steps.length; i++) {
-		out[steps[i]] = `rgb(var(--${color}${steps[i]}) / <alpha-value>)`;
-	}
-	return out;
 }
 
 export default wrpPlugin;

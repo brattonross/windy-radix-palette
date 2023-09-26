@@ -13,8 +13,8 @@
 		"format": "biome format --write ."
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.1.2",
-		"bun-types": "^1.0.1",
+		"@biomejs/biome": "^1.2.2",
+		"bun-types": "^1.0.3",
 		"turbo": "latest",
 		"typescript": "^5.2.2"
 	}
