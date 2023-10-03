@@ -1,18 +1,21 @@
 {
+	"$schema": "https://json.schemastore.org/tsconfig.json",
 	"private": true,
 	"name": "windy-radix-palette-monorepo",
 	"repository": "https://github.com/brattonross/windy-radix-palette",
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
+	"type": "module",
+	"workspaces": ["docs", "packages/*"],
 	"scripts": {
 		"build": "turbo run build",
 		"dev": "turbo run dev",
-		"format": "prettier --plugin-search-dir=. --ignore-path=.gitignore --write './**/*.{js,cjs,mjs,ts,tsx,md,astro}'"
+		"format": "biome format --write ."
 	},
 	"devDependencies": {
-		"prettier": "^3.0.3",
-		"prettier-plugin-astro": "^0.12.0",
-		"prettier-plugin-tailwindcss": "^0.5.4",
-		"turbo": "^1.10.13"
+		"@biomejs/biome": "^1.2.2",
+		"bun-types": "^1.0.4",
+		"turbo": "latest",
+		"typescript": "^5.2.2"
 	}
 }

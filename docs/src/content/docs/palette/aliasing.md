@@ -4,21 +4,21 @@ title: "Aliasing"
 
 It is considered a good practice to create semantic names for the colors you are using in your project. For example, you might map the name "success" to a green color, "error" to a red color etc.
 
-There are some helper functions included in this package to help you create aliases:
+There is a helper functions included in this package to help you create aliases:
 
 ```js
-const { toRadixVar, toRadixVars } = require("windy-radix-palette/vars");
+const { alias } = require("windy-radix-palette");
 
 module.exports = {
 	theme: {
 		extend: {
 			colors: {
 				// Alias an entire palette
-				success: toRadixVars("green"),
-				error: toRadixVars("red"),
+				success: alias("green"),
+				error: alias("red"),
 
 				// Alias a single color
-				"high-contrast": toRadixVar("slate", 12),
+				"high-contrast": alias("slate", 12),
 			},
 		},
 	},
