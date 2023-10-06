@@ -75,6 +75,8 @@ const wrpPlugin = plugin.withOptions<PluginOptions>(
 				const scale = key.replace(colorName, "");
 				if (key.includes("A")) {
 					themeColor[scale] = `var(--${colorName}${scale})`;
+				} else if (colorName.includes("P3")) {
+					themeColor[scale] = `var(--${colorName.replace("P3", "")}${scale})`;
 				} else {
 					themeColor[
 						scale
@@ -114,13 +116,24 @@ export function alias(
 	color: LooseRadixColor,
 	step?: RadixStep,
 ): string | Record<string, string> {
-	if (color.includes("A") || color.includes("P3")) {
+	if (color.includes("A")) {
 		if (step) {
 			return `var(--${color}${step})`;
 		} else {
 			const out: Record<string, string> = {};
 			for (let i = 0; i < steps.length; i++) {
 				out[steps[i]] = `var(--${color}${steps[i]})`;
+			}
+			return out;
+		}
+	} else if (color.includes("P3")) {
+		const colorName = color.replace("P3", "");
+		if (step) {
+			return `var(--${colorName}${step})`;
+		} else {
+			const out: Record<string, string> = {};
+			for (let i = 0; i < steps.length; i++) {
+				out[steps[i]] = `var(--${colorName}${steps[i]})`;
 			}
 			return out;
 		}

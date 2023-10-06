@@ -12,8 +12,14 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["tailwindcss", "plugin", "radix-ui"],
-	"files": ["dist"],
+	"keywords": [
+		"tailwindcss",
+		"plugin",
+		"radix-ui"
+	],
+	"files": [
+		"dist"
+	],
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
 	"scripts": {
