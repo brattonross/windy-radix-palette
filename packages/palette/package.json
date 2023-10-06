@@ -24,7 +24,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "bun build ./src/index.ts --outdir dist --watch",
-		"build": "bun build ./src/index.ts --external @radix-ui/colors --external tailwindcss --outdir dist && tsc --project tsconfig.json"
+		"build": "bun build ./src/index.ts --external @radix-ui/colors --external tailwindcss --outdir dist && tsc --project tsconfig.json",
+		"test": "vitest"
 	},
 	"peerDependencies": {
 		"@radix-ui/colors": ">=3.0.0",
@@ -32,6 +33,8 @@
 	},
 	"devDependencies": {
 		"@radix-ui/colors": "3.0.0",
-		"tailwindcss": "^3.3.3"
+		"tailwindcss": "^3.3.3",
+		"vite": "^4.4.11",
+		"vitest": "^0.34.6"
 	}
 }

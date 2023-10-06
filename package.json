@@ -13,11 +13,11 @@
 	"scripts": {
 		"build": "turbo build",
 		"dev": "turbo dev",
+		"test": "turbo test",
 		"format": "prettier --write .",
 		"sherif": "sherif"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.2.2",
 		"prettier": "^3.0.3",
 		"prettier-plugin-astro": "^0.12.0",
 		"prettier-plugin-tailwindcss": "^0.5.5",
