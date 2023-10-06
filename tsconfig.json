@@ -5,9 +5,7 @@
 		"allowSyntheticDefaultImports": true,
 		"downlevelIteration": true,
 		"forceConsistentCasingInFileNames": true,
-		"lib": [
-			"esnext"
-		],
+		"lib": ["esnext"],
 		"module": "esnext",
 		"moduleDetection": "force",
 		"moduleResolution": "bundler",

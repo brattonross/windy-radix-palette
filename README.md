@@ -68,8 +68,8 @@ module.exports = {
 
 Thanks to the design of the Radix Colors palettes, you don't actually need to do anything to make dark mode work! The colors in this palette will automatically switch to the light/dark variant based on your Tailwind dark mode settings:
 
-- When `darkMode` is not set, or is set to `'media'`, the palette will change based on the user's preferred color scheme ([`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme))
-- When `darkMode` is set to `'class'`, the palette will change based on the presence of the dark mode selector (defaults to `.dark`), note that you can [customize the dark mode selector](https://tailwindcss.com/docs/dark-mode#customizing-the-class-name) if required
+-   When `darkMode` is not set, or is set to `'media'`, the palette will change based on the user's preferred color scheme ([`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme))
+-   When `darkMode` is set to `'class'`, the palette will change based on the presence of the dark mode selector (defaults to `.dark`), note that you can [customize the dark mode selector](https://tailwindcss.com/docs/dark-mode#customizing-the-class-name) if required
 
 Unlike the default Tailwind palette, Radix Colors come in light and dark variants, and the palettes are meant to be used only in light and dark mode respectively (in order to meet WCAG color contrast guidelines). This means that you don't need to prefix any of your classes with `dark:`&mdash;the palettes are designed to [_just work_](https://www.youtube.com/watch?v=aAwaxTGnkSk) when switching between light and dark mode.
 
@@ -114,7 +114,7 @@ Here is an example of a simple plugin that makes use of the Radix Colors palette
 const plugin = require("tailwindcss/plugin");
 
 function resolveColor(color, opacityVariableName) {
-  return color.replace('<alpha-value>', `var(${opacityVariableName}, 1)`)
+	return color.replace("<alpha-value>", `var(${opacityVariableName}, 1)`);
 }
 
 module.exports = {
@@ -158,10 +158,16 @@ module.exports = {
 					},
 				},
 				[["input::placeholder", "textarea::placeholder"]]: {
-					color: resolveColor(theme("colors.slate.9"), "--tw-text-opacity"),
+					color: resolveColor(
+						theme("colors.slate.9"),
+						"--tw-text-opacity",
+					),
 				},
 				[[`[type='checkbox']`, `[type='radio']`]]: {
-					color: resolveColor(theme("colors.blue.9"), "--tw-text-opacity"),
+					color: resolveColor(
+						theme("colors.blue.9"),
+						"--tw-text-opacity",
+					),
 					borderColor: resolveColor(
 						theme("colors.slate.7"),
 						"--tw-border-opacity",
@@ -181,4 +187,4 @@ module.exports = {
 
 ## Attributions
 
-- [Radix UI](https://github.com/radix-ui) team for creating these wonderful color palettes
+-   [Radix UI](https://github.com/radix-ui) team for creating these wonderful color palettes

@@ -31,7 +31,9 @@ const wrpPlugin = plugin.withOptions<PluginOptions>(
 		}
 
 		return ({ addBase, config }) => {
-			const [darkMode, className = ".dark"] = [config("darkMode", "media")];
+			const [darkMode, className = ".dark"] = [
+				config("darkMode", "media"),
+			];
 
 			if (darkMode === "class") {
 				addBase({
@@ -76,7 +78,10 @@ const wrpPlugin = plugin.withOptions<PluginOptions>(
 				if (key.includes("A")) {
 					themeColor[scale] = `var(--${colorName}${scale})`;
 				} else if (colorName.includes("P3")) {
-					themeColor[scale] = `var(--${colorName.replace("P3", "")}${scale})`;
+					themeColor[scale] = `var(--${colorName.replace(
+						"P3",
+						"",
+					)}${scale})`;
 				} else {
 					themeColor[
 						scale
@@ -107,7 +112,7 @@ function hexToRGBChannels(hex: string): string {
 const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 
 export type NumberOrString<T extends number> = T | `${T}`;
-export type RadixStep = NumberOrString<typeof steps[number]>;
+export type RadixStep = NumberOrString<(typeof steps)[number]>;
 export type LooseRadixColor = keyof typeof radix | (string & {});
 
 export function alias(color: LooseRadixColor): Record<string, string>;
