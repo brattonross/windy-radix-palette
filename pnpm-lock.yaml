@@ -20,6 +20,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.5.5
         version: 0.5.5(prettier-plugin-astro@0.12.0)(prettier@3.0.3)
+      sherif:
+        specifier: ^0.3.1
+        version: 0.3.1
       turbo:
         specifier: ^1.10.15
         version: 1.10.15
@@ -3872,6 +3875,66 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+    dev: true
+
+  /sherif-darwin-arm64@0.3.1:
+    resolution: {integrity: sha512-faXW73a5urqbR2TbAXcJm4cYclh75IxWWfPHF0zoWq1aTocO9ou/5mGquB2kzmXzn3oskXUwuRuuhu4tJpeOQg==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif-darwin-x64@0.3.1:
+    resolution: {integrity: sha512-CT1SozIYrXiAFjhHFA8KVKgdoHfYYiiaG6VADyLyygqIN3Gx3p5+XFt9NTEGqojQIsXQ/79EJpPd0Cbv7b6SsQ==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif-linux-arm64@0.3.1:
+    resolution: {integrity: sha512-YVsaubFlQVadk3Q8Zl/TMKciq2Cnbk0tQCgDAOsEFsPnPHgN/yW+X4q4fdBw1Unl6y9sLqIFSGPdW49EKSHS5w==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif-linux-x64@0.3.1:
+    resolution: {integrity: sha512-Z4jgMYGptQMPmaEega7SjoXNIBBVV0Jw/b9LsdXmJIw3CWAOTncHFVDJP8PGRzIfXjIg5d+Z25z7KWni6AuzjA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif-windows-arm64@0.3.1:
+    resolution: {integrity: sha512-XeHNyiA7cR7pl9HMYZjCjP1r4qXIcl19Jgod85Uz31zEBECGUiKCwD73GA5edIhiH5xaARHQiZjzpud/m+y8Jw==}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif-windows-x64@0.3.1:
+    resolution: {integrity: sha512-lTAjlE6eegVIu+83RRx8kzOPVPjEy+fsukbGFjPwgnAmC1Tmcf00O/UuCjoZ1Ars27zE6H39zUNhDkBtBSu1Ag==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /sherif@0.3.1:
+    resolution: {integrity: sha512-XFAx2ElwQXXi4gwnuUPxbrWNEkiVFz18pMLBWAJI460KzzXIodtcc76IVAci4yO3YOgH+NBOlXvFq03clJnjkQ==}
+    hasBin: true
+    optionalDependencies:
+      sherif-darwin-arm64: 0.3.1
+      sherif-darwin-x64: 0.3.1
+      sherif-linux-arm64: 0.3.1
+      sherif-linux-x64: 0.3.1
+      sherif-windows-arm64: 0.3.1
+      sherif-windows-x64: 0.3.1
     dev: true
 
   /shiki@0.14.4:
