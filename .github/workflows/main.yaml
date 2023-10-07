@@ -23,6 +23,10 @@ jobs:
                   cache: "pnpm"
             - name: Install dependencies
               run: pnpm install
+            - name: Sherif
+              run: pnpm run sherif
+            - name: Publint
+              run: pnpm run publint
             - name: Run tests
               run: pnpm run test
             - name: Build
