@@ -1,5 +1,7 @@
 import starlight from "@astrojs/starlight-tailwind";
-import radix, { alias } from "windy-radix-palette";
+import { createPlugin } from "windy-radix-palette";
+
+const radix = createPlugin();
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,9 +10,9 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				"hi-contrast": alias("mauve", 12),
-				"lo-contrast": alias("mauve", 11),
-				neutral: alias("mauve"),
+				"hi-contrast": radix.alias("mauve", 12),
+				"lo-contrast": radix.alias("mauve", 11),
+				neutral: radix.alias("mauve"),
 			},
 		},
 	},
@@ -21,7 +23,7 @@ export default {
 		},
 	],
 	plugins: [
-		radix(),
+		radix.plugin,
 		require("@tailwindcss/typography"),
 		require("windy-radix-typography"),
 		starlight(),

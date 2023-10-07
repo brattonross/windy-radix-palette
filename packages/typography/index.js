@@ -11,7 +11,7 @@ module.exports = plugin.withOptions(
 					typography: ({ theme }) => {
 						// TODO: Why doesn't Tailwind replace `<alpha-value>` for us?
 						function getThemeColor(color, step) {
-							return theme(`colors.${color}[${step}]`).replace(
+							return theme(`colors.${color}.${step}`)?.replace(
 								"<alpha-value>",
 								"1",
 							);

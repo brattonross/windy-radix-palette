@@ -34,80 +34,38 @@ export function createPlugin({
 	opacitySupport = false,
 	rootSelector = ":root",
 }: PluginOptions = {}) {
-	const wrpPlugin = plugin.withOptions<PluginOptions>(
-		() => {
-			const baseStyles = generateBaseStyles({ colors, opacitySupport });
-			return ({ addBase, config }) => {
-				const [darkMode, className = ".dark"] = [
-					config("darkMode", "media"),
-				];
+	const wrpPlugin = plugin(({ addBase, config }) => {
+		const baseStyles = generateBaseStyles({ colors, opacitySupport });
+		const [darkMode, className = ".dark"] = [config("darkMode", "media")];
 
-				if (darkMode === "class") {
-					addBase({
-						[rootSelector]: baseStyles.light,
-						[className]: baseStyles.dark,
-						"@supports (color: color(display-p3 1 1 1))": {
-							"@media (color-gamut: p3)": {
-								[rootSelector]: baseStyles.lightP3,
-								[className]: baseStyles.darkP3,
-							},
-						},
-					});
-				} else {
-					addBase({
-						[rootSelector]: baseStyles.light,
-						"@media (prefers-color-scheme: dark)": {
-							[rootSelector]: baseStyles.dark,
-						},
-						"@supports (color: color(display-p3 1 1 1))": {
-							"@media (color-gamut: p3)": {
-								[rootSelector]: baseStyles.lightP3,
-								"@media (prefers-color-scheme: dark)": {
-									[rootSelector]: baseStyles.darkP3,
-								},
-							},
-						},
-					});
-				}
-			};
-		},
-		({ colors = radix } = {}) => {
-			const themeColors: Record<string, Record<string, string>> = {};
-
-			for (const [colorName, steps] of Object.entries(colors)) {
-				if (colorName.includes("Dark")) {
-					continue;
-				}
-
-				const themeColor: Record<string, string> = {};
-				for (const key of Object.keys(steps)) {
-					const scale = key.replace(colorName, "");
-					if (key.includes("A")) {
-						themeColor[scale] = `var(--${colorName}${scale})`;
-					} else if (colorName.includes("P3")) {
-						themeColor[scale] = `var(--${colorName.replace(
-							"P3",
-							"",
-						)}${scale})`;
-					} else {
-						themeColor[
-							scale
-						] = `rgb(var(--${colorName}${scale}) / <alpha-value>)`;
-					}
-				}
-
-				themeColors[colorName] = themeColor;
-			}
-
-			return {
-				theme: {
-					extend: {
-						colors: themeColors,
+		if (darkMode === "class") {
+			addBase({
+				[rootSelector]: baseStyles.light,
+				[className]: baseStyles.dark,
+				"@supports (color: color(display-p3 1 1 1))": {
+					"@media (color-gamut: p3)": {
+						[rootSelector]: baseStyles.lightP3,
+						[className]: baseStyles.darkP3,
 					},
 				},
-			};
-		},
-	);
+			});
+		} else {
+			addBase({
+				[rootSelector]: baseStyles.light,
+				"@media (prefers-color-scheme: dark)": {
+					[rootSelector]: baseStyles.dark,
+				},
+				"@supports (color: color(display-p3 1 1 1))": {
+					"@media (color-gamut: p3)": {
+						[rootSelector]: baseStyles.lightP3,
+						"@media (prefers-color-scheme: dark)": {
+							[rootSelector]: baseStyles.darkP3,
+						},
+					},
+				},
+			});
+		}
+	}, generateTailwindConfig({ colors, opacitySupport }));
 
 	function alias(color: LooseRadixColor): Record<string, string>;
 	function alias(color: LooseRadixColor, step: RadixStep): string;
