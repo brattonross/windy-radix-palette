@@ -6,16 +6,25 @@
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
 	"type": "module",
-	"workspaces": ["docs", "packages/*"],
+	"workspaces": [
+		"docs",
+		"packages/*"
+	],
 	"scripts": {
-		"build": "turbo run build",
-		"dev": "turbo run dev",
-		"format": "biome format --write ."
+		"build": "turbo build",
+		"dev": "turbo dev",
+		"test": "turbo test",
+		"format": "prettier --write .",
+		"sherif": "sherif",
+		"publint": "publint"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.2.2",
-		"bun-types": "^1.0.4",
-		"turbo": "latest",
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
+		"prettier-plugin-tailwindcss": "^0.5.5",
+		"publint": "^0.2.3",
+		"sherif": "^0.3.1",
+		"turbo": "^1.10.15",
 		"typescript": "^5.2.2"
 	}
 }

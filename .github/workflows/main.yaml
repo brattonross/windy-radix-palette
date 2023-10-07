@@ -1,0 +1,29 @@
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        strategy:
+            matrix:
+                node-version: [18, 20]
+        steps:
+            - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Use Node v${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "pnpm"
+            - name: Install dependencies
+              run: pnpm install
+            - name: Run tests
+              run: pnpm run test
+            - name: Build
+              run: pnpm run build

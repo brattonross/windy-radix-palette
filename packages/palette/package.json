@@ -3,8 +3,6 @@
 	"name": "windy-radix-palette",
 	"version": "1.0.0",
 	"description": "Bring Radix Colors to Tailwind CSS",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"repository": {
 		"url": "https://github.com/brattonross/windy-radix-palette",
 		"directory": "packages/palette"
@@ -12,13 +10,34 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["tailwindcss", "plugin", "radix-ui"],
-	"files": ["dist"],
+	"keywords": [
+		"tailwindcss",
+		"plugin",
+		"radix-ui"
+	],
 	"author": "Ross Bratton <bratton.ross@gmail.com>",
 	"license": "MIT",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"scripts": {
-		"dev": "bun build ./src/index.ts --outdir dist --watch",
-		"build": "bun build ./src/index.ts --external @radix-ui/colors --external tailwindcss --outdir dist && tsc --project tsconfig.json"
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"test": "vitest"
 	},
 	"peerDependencies": {
 		"@radix-ui/colors": ">=3.0.0",
@@ -26,6 +45,9 @@
 	},
 	"devDependencies": {
 		"@radix-ui/colors": "3.0.0",
-		"tailwindcss": "^3.3.3"
+		"tailwindcss": "^3.3.3",
+		"tsup": "^7.2.0",
+		"vite": "^4.4.11",
+		"vitest": "^0.34.6"
 	}
 }
