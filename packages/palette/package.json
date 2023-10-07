@@ -3,8 +3,6 @@
 	"name": "windy-radix-palette",
 	"version": "1.0.0",
 	"description": "Bring Radix Colors to Tailwind CSS",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"repository": {
 		"url": "https://github.com/brattonross/windy-radix-palette",
 		"directory": "packages/palette"
@@ -17,14 +15,28 @@
 		"plugin",
 		"radix-ui"
 	],
+	"author": "Ross Bratton <bratton.ross@gmail.com>",
+	"license": "MIT",
 	"files": [
 		"dist"
 	],
-	"author": "Ross Bratton <bratton.ross@gmail.com>",
-	"license": "MIT",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"scripts": {
-		"dev": "tsup ./src/index.ts --clean --dts --watch",
-		"build": "tsup ./src/index.ts --clean --dts --external @radix-ui/colors --external tailwindcss",
+		"dev": "tsup --watch",
+		"build": "tsup",
 		"test": "vitest"
 	},
 	"peerDependencies": {
