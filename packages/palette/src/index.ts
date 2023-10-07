@@ -1,6 +1,12 @@
 import * as radix from "@radix-ui/colors";
 import plugin from "tailwindcss/plugin";
 
+const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
+
+export type NumberOrString<T extends number> = T | `${T}`;
+export type RadixStep = NumberOrString<(typeof steps)[number]>;
+export type LooseRadixColor = keyof typeof radix | (string & {});
+
 export type PluginOptions = {
 	/**
 	 * Radix Colors that should have Tailwind classes generated.
@@ -23,84 +29,130 @@ export type PluginOptions = {
 	rootSelector?: string;
 };
 
-const wrpPlugin = plugin.withOptions<PluginOptions>(
-	({
-		colors = radix,
-		opacitySupport = false,
-		rootSelector = ":root",
-	} = {}) => {
-		const baseStyles = generateBaseStyles({ colors, opacitySupport });
-		return ({ addBase, config }) => {
-			const [darkMode, className = ".dark"] = [
-				config("darkMode", "media"),
-			];
+export function createPlugin({
+	colors = radix,
+	opacitySupport = false,
+	rootSelector = ":root",
+}: PluginOptions = {}) {
+	const wrpPlugin = plugin.withOptions<PluginOptions>(
+		() => {
+			const baseStyles = generateBaseStyles({ colors, opacitySupport });
+			return ({ addBase, config }) => {
+				const [darkMode, className = ".dark"] = [
+					config("darkMode", "media"),
+				];
 
-			if (darkMode === "class") {
-				addBase({
-					[rootSelector]: baseStyles.light,
-					[className]: baseStyles.dark,
-					"@supports (color: color(display-p3 1 1 1))": {
-						"@media (color-gamut: p3)": {
-							[rootSelector]: baseStyles.lightP3,
-							[className]: baseStyles.darkP3,
-						},
-					},
-				});
-			} else {
-				addBase({
-					[rootSelector]: baseStyles.light,
-					"@media (prefers-color-scheme: dark)": {
-						[rootSelector]: baseStyles.dark,
-					},
-					"@supports (color: color(display-p3 1 1 1))": {
-						"@media (color-gamut: p3)": {
-							[rootSelector]: baseStyles.lightP3,
-							"@media (prefers-color-scheme: dark)": {
-								[rootSelector]: baseStyles.darkP3,
+				if (darkMode === "class") {
+					addBase({
+						[rootSelector]: baseStyles.light,
+						[className]: baseStyles.dark,
+						"@supports (color: color(display-p3 1 1 1))": {
+							"@media (color-gamut: p3)": {
+								[rootSelector]: baseStyles.lightP3,
+								[className]: baseStyles.darkP3,
 							},
 						},
-					},
-				});
-			}
-		};
-	},
-	({ colors = radix } = {}) => {
-		const themeColors: Record<string, Record<string, string>> = {};
-
-		for (const [colorName, colorObj] of Object.entries(colors)) {
-			if (colorName.includes("Dark")) {
-				continue;
-			}
-
-			const themeColor: Record<string, string> = {};
-			for (const key of Object.keys(colorObj)) {
-				const scale = key.replace(colorName, "");
-				if (key.includes("A")) {
-					themeColor[scale] = `var(--${colorName}${scale})`;
-				} else if (colorName.includes("P3")) {
-					themeColor[scale] = `var(--${colorName.replace(
-						"P3",
-						"",
-					)}${scale})`;
+					});
 				} else {
-					themeColor[
-						scale
-					] = `rgb(var(--${colorName}${scale}) / <alpha-value>)`;
+					addBase({
+						[rootSelector]: baseStyles.light,
+						"@media (prefers-color-scheme: dark)": {
+							[rootSelector]: baseStyles.dark,
+						},
+						"@supports (color: color(display-p3 1 1 1))": {
+							"@media (color-gamut: p3)": {
+								[rootSelector]: baseStyles.lightP3,
+								"@media (prefers-color-scheme: dark)": {
+									[rootSelector]: baseStyles.darkP3,
+								},
+							},
+						},
+					});
 				}
+			};
+		},
+		({ colors = radix } = {}) => {
+			const themeColors: Record<string, Record<string, string>> = {};
+
+			for (const [colorName, steps] of Object.entries(colors)) {
+				if (colorName.includes("Dark")) {
+					continue;
+				}
+
+				const themeColor: Record<string, string> = {};
+				for (const key of Object.keys(steps)) {
+					const scale = key.replace(colorName, "");
+					if (key.includes("A")) {
+						themeColor[scale] = `var(--${colorName}${scale})`;
+					} else if (colorName.includes("P3")) {
+						themeColor[scale] = `var(--${colorName.replace(
+							"P3",
+							"",
+						)}${scale})`;
+					} else {
+						themeColor[
+							scale
+						] = `rgb(var(--${colorName}${scale}) / <alpha-value>)`;
+					}
+				}
+
+				themeColors[colorName] = themeColor;
 			}
 
-			themeColors[colorName] = themeColor;
+			return {
+				theme: {
+					extend: {
+						colors: themeColors,
+					},
+				},
+			};
+		},
+	);
+
+	function alias(color: LooseRadixColor): Record<string, string>;
+	function alias(color: LooseRadixColor, step: RadixStep): string;
+	function alias(
+		color: LooseRadixColor,
+		step?: RadixStep,
+	): string | Record<string, string> {
+		if (!opacitySupport || color.includes("A")) {
+			if (step) {
+				return `var(--${color}${step})`;
+			} else {
+				const out: Record<string, string> = {};
+				for (let i = 0; i < steps.length; i++) {
+					out[steps[i]] = `var(--${color}${steps[i]})`;
+				}
+				return out;
+			}
 		}
 
-		return {
-			theme: {
-				extend: {
-					colors: themeColors,
-				},
-			},
-		};
-	},
-);
+		if (color.includes("P3")) {
+			const colorName = color.replace("P3", "");
+			if (step) {
+				return `var(--${colorName}${step})`;
+			} else {
+				const out: Record<string, string> = {};
+				for (let i = 0; i < steps.length; i++) {
+					out[steps[i]] = `var(--${colorName}${steps[i]})`;
+				}
+				return out;
+			}
+		} else if (step) {
+			return `rgb(var(--${color}${step}) / <alpha-value>)`;
+		} else {
+			const out: Record<string, string> = {};
+			for (let i = 0; i < steps.length; i++) {
+				out[
+					steps[i]
+				] = `rgb(var(--${color}${steps[i]}) / <alpha-value>)`;
+			}
+			return out;
+		}
+	}
+
+	return { alias, plugin: wrpPlugin };
+}
 
 function hexToRGBChannels(hex: string): string {
 	const r = hex.substring(1, 3);
@@ -109,48 +161,13 @@ function hexToRGBChannels(hex: string): string {
 	return `${parseInt(r, 16)} ${parseInt(g, 16)} ${parseInt(b, 16)}`;
 }
 
-const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
+if (import.meta.vitest) {
+	const { test, expect } = import.meta.vitest;
 
-export type NumberOrString<T extends number> = T | `${T}`;
-export type RadixStep = NumberOrString<(typeof steps)[number]>;
-export type LooseRadixColor = keyof typeof radix | (string & {});
-
-export function alias(color: LooseRadixColor): Record<string, string>;
-export function alias(color: LooseRadixColor, step: RadixStep): string;
-export function alias(
-	color: LooseRadixColor,
-	step?: RadixStep,
-): string | Record<string, string> {
-	if (color.includes("A")) {
-		if (step) {
-			return `var(--${color}${step})`;
-		} else {
-			const out: Record<string, string> = {};
-			for (let i = 0; i < steps.length; i++) {
-				out[steps[i]] = `var(--${color}${steps[i]})`;
-			}
-			return out;
-		}
-	} else if (color.includes("P3")) {
-		const colorName = color.replace("P3", "");
-		if (step) {
-			return `var(--${colorName}${step})`;
-		} else {
-			const out: Record<string, string> = {};
-			for (let i = 0; i < steps.length; i++) {
-				out[steps[i]] = `var(--${colorName}${steps[i]})`;
-			}
-			return out;
-		}
-	} else if (step) {
-		return `rgb(var(--${color}${step}) / <alpha-value>)`;
-	} else {
-		const out: Record<string, string> = {};
-		for (let i = 0; i < steps.length; i++) {
-			out[steps[i]] = `rgb(var(--${color}${steps[i]}) / <alpha-value>)`;
-		}
-		return out;
-	}
+	test(hexToRGBChannels, () => {
+		expect(hexToRGBChannels("#ffffff")).toBe("255 255 255");
+		expect(hexToRGBChannels("#000000")).toBe("0 0 0");
+	});
 }
 
 function generateBaseStyles(options: {
@@ -186,9 +203,12 @@ function generateBaseStyles(options: {
 			let color = value;
 			if (options.opacitySupport && !key.includes("A")) {
 				if (colorName.includes("P3")) {
-					color = value.replace(")", " / <alpha-value>)");
+					color = value.slice(
+						value.indexOf("(") + 1,
+						value.indexOf(")"),
+					);
 				} else {
-					color = `rgb(${hexToRGBChannels(value)} / <alpha-value>)`;
+					color = hexToRGBChannels(value);
 				}
 			}
 
@@ -450,18 +470,18 @@ if (import.meta.vitest) {
 				}),
 			).toEqual({
 				light: {
-					"--gray1": "rgb(252 252 252 / <alpha-value>)",
-					"--gray2": "rgb(249 249 249 / <alpha-value>)",
-					"--gray3": "rgb(240 240 240 / <alpha-value>)",
-					"--gray4": "rgb(232 232 232 / <alpha-value>)",
-					"--gray5": "rgb(224 224 224 / <alpha-value>)",
-					"--gray6": "rgb(217 217 217 / <alpha-value>)",
-					"--gray7": "rgb(206 206 206 / <alpha-value>)",
-					"--gray8": "rgb(187 187 187 / <alpha-value>)",
-					"--gray9": "rgb(141 141 141 / <alpha-value>)",
-					"--gray10": "rgb(131 131 131 / <alpha-value>)",
-					"--gray11": "rgb(100 100 100 / <alpha-value>)",
-					"--gray12": "rgb(32 32 32 / <alpha-value>)",
+					"--gray1": "252 252 252",
+					"--gray2": "249 249 249",
+					"--gray3": "240 240 240",
+					"--gray4": "232 232 232",
+					"--gray5": "224 224 224",
+					"--gray6": "217 217 217",
+					"--gray7": "206 206 206",
+					"--gray8": "187 187 187",
+					"--gray9": "141 141 141",
+					"--gray10": "131 131 131",
+					"--gray11": "100 100 100",
+					"--gray12": "32 32 32",
 					"--grayA1": "#00000003",
 					"--grayA2": "#00000006",
 					"--grayA3": "#0000000f",
@@ -476,18 +496,18 @@ if (import.meta.vitest) {
 					"--grayA12": "#000000df",
 				},
 				dark: {
-					"--gray1": "rgb(17 17 17 / <alpha-value>)",
-					"--gray2": "rgb(25 25 25 / <alpha-value>)",
-					"--gray3": "rgb(34 34 34 / <alpha-value>)",
-					"--gray4": "rgb(42 42 42 / <alpha-value>)",
-					"--gray5": "rgb(49 49 49 / <alpha-value>)",
-					"--gray6": "rgb(58 58 58 / <alpha-value>)",
-					"--gray7": "rgb(72 72 72 / <alpha-value>)",
-					"--gray8": "rgb(96 96 96 / <alpha-value>)",
-					"--gray9": "rgb(110 110 110 / <alpha-value>)",
-					"--gray10": "rgb(123 123 123 / <alpha-value>)",
-					"--gray11": "rgb(180 180 180 / <alpha-value>)",
-					"--gray12": "rgb(238 238 238 / <alpha-value>)",
+					"--gray1": "17 17 17",
+					"--gray2": "25 25 25",
+					"--gray3": "34 34 34",
+					"--gray4": "42 42 42",
+					"--gray5": "49 49 49",
+					"--gray6": "58 58 58",
+					"--gray7": "72 72 72",
+					"--gray8": "96 96 96",
+					"--gray9": "110 110 110",
+					"--gray10": "123 123 123",
+					"--gray11": "180 180 180",
+					"--gray12": "238 238 238",
 					"--grayA1": "#00000000",
 					"--grayA2": "#ffffff09",
 					"--grayA3": "#ffffff12",
@@ -502,30 +522,18 @@ if (import.meta.vitest) {
 					"--grayA12": "#ffffffed",
 				},
 				lightP3: {
-					"--grayP31":
-						"color(display-p3 0.988 0.988 0.988 / <alpha-value>)",
-					"--grayP32":
-						"color(display-p3 0.975 0.975 0.975 / <alpha-value>)",
-					"--grayP33":
-						"color(display-p3 0.939 0.939 0.939 / <alpha-value>)",
-					"--grayP34":
-						"color(display-p3 0.908 0.908 0.908 / <alpha-value>)",
-					"--grayP35":
-						"color(display-p3 0.88 0.88 0.88 / <alpha-value>)",
-					"--grayP36":
-						"color(display-p3 0.849 0.849 0.849 / <alpha-value>)",
-					"--grayP37":
-						"color(display-p3 0.807 0.807 0.807 / <alpha-value>)",
-					"--grayP38":
-						"color(display-p3 0.732 0.732 0.732 / <alpha-value>)",
-					"--grayP39":
-						"color(display-p3 0.553 0.553 0.553 / <alpha-value>)",
-					"--grayP310":
-						"color(display-p3 0.512 0.512 0.512 / <alpha-value>)",
-					"--grayP311":
-						"color(display-p3 0.392 0.392 0.392 / <alpha-value>)",
-					"--grayP312":
-						"color(display-p3 0.125 0.125 0.125 / <alpha-value>)",
+					"--grayP31": "display-p3 0.988 0.988 0.988",
+					"--grayP32": "display-p3 0.975 0.975 0.975",
+					"--grayP33": "display-p3 0.939 0.939 0.939",
+					"--grayP34": "display-p3 0.908 0.908 0.908",
+					"--grayP35": "display-p3 0.88 0.88 0.88",
+					"--grayP36": "display-p3 0.849 0.849 0.849",
+					"--grayP37": "display-p3 0.807 0.807 0.807",
+					"--grayP38": "display-p3 0.732 0.732 0.732",
+					"--grayP39": "display-p3 0.553 0.553 0.553",
+					"--grayP310": "display-p3 0.512 0.512 0.512",
+					"--grayP311": "display-p3 0.392 0.392 0.392",
+					"--grayP312": "display-p3 0.125 0.125 0.125",
 					"--grayP3A1": "color(display-p3 0 0 0 / 0.012)",
 					"--grayP3A2": "color(display-p3 0 0 0 / 0.024)",
 					"--grayP3A3": "color(display-p3 0 0 0 / 0.063)",
@@ -540,30 +548,18 @@ if (import.meta.vitest) {
 					"--grayP3A12": "color(display-p3 0 0 0 / 0.875)",
 				},
 				darkP3: {
-					"--grayP31":
-						"color(display-p3 0.067 0.067 0.067 / <alpha-value>)",
-					"--grayP32":
-						"color(display-p3 0.098 0.098 0.098 / <alpha-value>)",
-					"--grayP33":
-						"color(display-p3 0.135 0.135 0.135 / <alpha-value>)",
-					"--grayP34":
-						"color(display-p3 0.163 0.163 0.163 / <alpha-value>)",
-					"--grayP35":
-						"color(display-p3 0.192 0.192 0.192 / <alpha-value>)",
-					"--grayP36":
-						"color(display-p3 0.228 0.228 0.228 / <alpha-value>)",
-					"--grayP37":
-						"color(display-p3 0.283 0.283 0.283 / <alpha-value>)",
-					"--grayP38":
-						"color(display-p3 0.375 0.375 0.375 / <alpha-value>)",
-					"--grayP39":
-						"color(display-p3 0.431 0.431 0.431 / <alpha-value>)",
-					"--grayP310":
-						"color(display-p3 0.484 0.484 0.484 / <alpha-value>)",
-					"--grayP311":
-						"color(display-p3 0.706 0.706 0.706 / <alpha-value>)",
-					"--grayP312":
-						"color(display-p3 0.933 0.933 0.933 / <alpha-value>)",
+					"--grayP31": "display-p3 0.067 0.067 0.067",
+					"--grayP32": "display-p3 0.098 0.098 0.098",
+					"--grayP33": "display-p3 0.135 0.135 0.135",
+					"--grayP34": "display-p3 0.163 0.163 0.163",
+					"--grayP35": "display-p3 0.192 0.192 0.192",
+					"--grayP36": "display-p3 0.228 0.228 0.228",
+					"--grayP37": "display-p3 0.283 0.283 0.283",
+					"--grayP38": "display-p3 0.375 0.375 0.375",
+					"--grayP39": "display-p3 0.431 0.431 0.431",
+					"--grayP310": "display-p3 0.484 0.484 0.484",
+					"--grayP311": "display-p3 0.706 0.706 0.706",
+					"--grayP312": "display-p3 0.933 0.933 0.933",
 					"--grayP3A1": "color(display-p3 0 0 0 / 0)",
 					"--grayP3A2": "color(display-p3 1 1 1 / 0.034)",
 					"--grayP3A3": "color(display-p3 1 1 1 / 0.071)",
@@ -580,6 +576,172 @@ if (import.meta.vitest) {
 			});
 		});
 	});
+
+	describe(generateTailwindConfig, () => {
+		test("opacity support disabled", () => {
+			expect(
+				generateTailwindConfig({
+					colors: testColors,
+					opacitySupport: false,
+				}),
+			).toEqual({
+				theme: {
+					extend: {
+						colors: {
+							gray: {
+								1: "var(--gray1)",
+								2: "var(--gray2)",
+								3: "var(--gray3)",
+								4: "var(--gray4)",
+								5: "var(--gray5)",
+								6: "var(--gray6)",
+								7: "var(--gray7)",
+								8: "var(--gray8)",
+								9: "var(--gray9)",
+								10: "var(--gray10)",
+								11: "var(--gray11)",
+								12: "var(--gray12)",
+							},
+							grayA: {
+								1: "var(--grayA1)",
+								2: "var(--grayA2)",
+								3: "var(--grayA3)",
+								4: "var(--grayA4)",
+								5: "var(--grayA5)",
+								6: "var(--grayA6)",
+								7: "var(--grayA7)",
+								8: "var(--grayA8)",
+								9: "var(--grayA9)",
+								10: "var(--grayA10)",
+								11: "var(--grayA11)",
+								12: "var(--grayA12)",
+							},
+						},
+					},
+				},
+			});
+		});
+
+		test("opacity support enabled", () => {
+			expect(
+				generateTailwindConfig({
+					colors: testColors,
+					opacitySupport: true,
+				}),
+			).toEqual({
+				theme: {
+					extend: {
+						colors: {
+							gray: {
+								1: "rgb(var(--gray1) / <alpha-value>)",
+								2: "rgb(var(--gray2) / <alpha-value>)",
+								3: "rgb(var(--gray3) / <alpha-value>)",
+								4: "rgb(var(--gray4) / <alpha-value>)",
+								5: "rgb(var(--gray5) / <alpha-value>)",
+								6: "rgb(var(--gray6) / <alpha-value>)",
+								7: "rgb(var(--gray7) / <alpha-value>)",
+								8: "rgb(var(--gray8) / <alpha-value>)",
+								9: "rgb(var(--gray9) / <alpha-value>)",
+								10: "rgb(var(--gray10) / <alpha-value>)",
+								11: "rgb(var(--gray11) / <alpha-value>)",
+								12: "rgb(var(--gray12) / <alpha-value>)",
+							},
+							grayA: {
+								1: "var(--grayA1)",
+								2: "var(--grayA2)",
+								3: "var(--grayA3)",
+								4: "var(--grayA4)",
+								5: "var(--grayA5)",
+								6: "var(--grayA6)",
+								7: "var(--grayA7)",
+								8: "var(--grayA8)",
+								9: "var(--grayA9)",
+								10: "var(--grayA10)",
+								11: "var(--grayA11)",
+								12: "var(--grayA12)",
+							},
+							grayP3: {
+								1: "color(var(--grayP31) / <alpha-value>)",
+								2: "color(var(--grayP32) / <alpha-value>)",
+								3: "color(var(--grayP33) / <alpha-value>)",
+								4: "color(var(--grayP34) / <alpha-value>)",
+								5: "color(var(--grayP35) / <alpha-value>)",
+								6: "color(var(--grayP36) / <alpha-value>)",
+								7: "color(var(--grayP37) / <alpha-value>)",
+								8: "color(var(--grayP38) / <alpha-value>)",
+								9: "color(var(--grayP39) / <alpha-value>)",
+								10: "color(var(--grayP310) / <alpha-value>)",
+								11: "color(var(--grayP311) / <alpha-value>)",
+								12: "color(var(--grayP312) / <alpha-value>)",
+							},
+							grayP3A: {
+								1: "var(--grayP3A1)",
+								2: "var(--grayP3A2)",
+								3: "var(--grayP3A3)",
+								4: "var(--grayP3A4)",
+								5: "var(--grayP3A5)",
+								6: "var(--grayP3A6)",
+								7: "var(--grayP3A7)",
+								8: "var(--grayP3A8)",
+								9: "var(--grayP3A9)",
+								10: "var(--grayP3A10)",
+								11: "var(--grayP3A11)",
+								12: "var(--grayP3A12)",
+							},
+						},
+					},
+				},
+			});
+		});
+	});
 }
 
-export default wrpPlugin;
+function generateTailwindConfig({
+	colors,
+	opacitySupport,
+}: Required<Pick<PluginOptions, "colors" | "opacitySupport">>) {
+	const themeColors: Record<string, Record<string, string>> = {};
+
+	for (const [colorName, steps] of Object.entries(colors)) {
+		if (!opacitySupport && colorName.includes("P3")) {
+			continue;
+		}
+
+		const themeColor: Record<string, string> = {};
+		for (const key of Object.keys(steps)) {
+			const stepKey = key.replace(
+				colorName.replace("Dark", "").replace("P3", ""),
+				"",
+			);
+			let value = `var(--${key})`;
+			if (opacitySupport) {
+				if (colorName.includes("P3")) {
+					const variable = `var(--${colorName.replace(
+						"Dark",
+						"",
+					)}${stepKey})`;
+					if (colorName.includes("A")) {
+						value = variable;
+					} else {
+						value = `color(${variable} / <alpha-value>)`;
+					}
+				} else if (!colorName.includes("A")) {
+					value = `rgb(var(--${key}) / <alpha-value>)`;
+				}
+			}
+			themeColor[stepKey] = value;
+		}
+
+		themeColors[colorName.replace("Dark", "")] = themeColor;
+	}
+
+	return {
+		theme: {
+			extend: {
+				colors: themeColors,
+			},
+		},
+	};
+}
+
+export default createPlugin;
