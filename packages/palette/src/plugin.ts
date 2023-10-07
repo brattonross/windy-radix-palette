@@ -34,9 +34,14 @@ export function createPlugin({
 	opacitySupport = false,
 	rootSelector = ":root",
 }: PluginOptions = {}) {
-	const wrpPlugin = plugin(({ addBase, config }) => {
+	const wrpPlugin = plugin(({ addBase, addVariant, config }) => {
 		const baseStyles = generateBaseStyles({ colors, opacitySupport });
 		const [darkMode, className = ".dark"] = [config("darkMode", "media")];
+
+		addVariant(
+			"p3",
+			"@supports (color: color(display-p3 1 1 1)) { @media (color-gamut: p3) }",
+		);
 
 		if (darkMode === "class") {
 			addBase({

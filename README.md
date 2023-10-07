@@ -74,14 +74,10 @@ module.exports = {
 };
 ```
 
-If you'd like to enable support for the opacity modifier, bear in mind that P3 colors will not be automatically applied when support is detected, and instead you will have to do this manually:
+If you'd like to enable support for the opacity modifier, bear in mind that P3 colors will not be automatically applied when support is detected, and instead you will have to do this manually, with the help of the `p3` modifier added by this plugin:
 
 ```html
-<button
-	class="bg-red-9 supports-[background-color:color(display-p3)]:bg-redP3-9"
->
-	Button
-</button>
+<button class="bg-red-9 p3:bg-redP3-9">Button</button>
 ```
 
 ### Root Selector
