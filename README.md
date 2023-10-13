@@ -56,6 +56,29 @@ module.exports = {
 };
 ```
 
+### Aliasing
+
+If you wish to alias one or more colors, you can use the available `alias` utility:
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				// Alias an entire scale
+				primary: colors.alias("blue"),
+				// Alias a single color
+				"hi-contrast": colors.alias("slate", 12),
+			},
+		},
+	},
+};
+```
+
 ### Opacity Support
 
 Use of Tailwind's opacity modifier is disabled by default. This means that classes like the following will not work with the default plugin configuration:
