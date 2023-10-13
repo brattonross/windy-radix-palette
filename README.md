@@ -2,6 +2,10 @@
 
 An unofficial package to improve the compatibility of [Radix Colors](https://www.radix-ui.com/colors) and [Tailwind](https://tailwindcss.com/).
 
+> [!WARNING]
+> The following documentation is for version 2.x of this package.
+> v1.0.0 of this package has an issue that makes it unable to display P3 colors. There is a v2.0.0-beta.x version available which fixes this issue.
+
 ## Installation
 
 ```sh
