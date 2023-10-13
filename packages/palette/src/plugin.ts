@@ -36,7 +36,7 @@ export function createPlugin({
 }: PluginOptions = {}) {
 	const wrpPlugin = plugin(({ addBase, addVariant, config }) => {
 		const baseStyles = generateBaseStyles({ colors, opacitySupport });
-		const [darkMode, className = ".dark"] = [config("darkMode", "media")];
+		const [darkMode, className = ".dark"] = config("darkMode", "media");
 
 		addVariant(
 			"p3",
