@@ -1,0 +1,19 @@
+---
+import { Content } from "~/components/sample.mdx";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+	<div
+		class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-12 lg:max-w-4xl lg:px-8 lg:py-16 xl:max-w-6xl"
+	>
+		<article>
+			<div
+				class="prose prose-gray prose-sm sm:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl dark:prose-invert mx-auto"
+			>
+				<h1>windy-radix-typography</h1>
+				<Content />
+			</div>
+		</article>
+	</div>
+</BaseLayout>

@@ -135,7 +135,7 @@ const COLORS = [
 		<div class="mx-auto flex w-full max-w-7xl flex-col gap-12">
 			<header class="flex flex-col items-start gap-4">
 				<h1
-					class="text-hi-contrast m-0 text-4xl font-medium tracking-tighter lg:text-6xl"
+					class="text-hi-contrast m-0 text-4xl font-medium tracking-tighter lg:text-5xl"
 				>
 					Bring Radix Colors to Tailwind CSS
 				</h1>
@@ -160,6 +160,7 @@ const COLORS = [
 							"transition-all",
 							"bg-white",
 							"no-underline",
+							"select-none",
 							"shadow-[-15px_0_30px_-10px_var(--orangeA7),_0_0_30px_-10px_var(--pinkA7),_15px_0_30px_-10px_var(--violetA7)]",
 							"hover:shadow-[-15px_0_30px_-10px_var(--orangeA8),_0_0_30px_-10px_var(--pinkA8),_15px_0_30px_-10px_var(--violetA8)]",
 						]}
@@ -181,12 +182,12 @@ const COLORS = [
 				</div>
 			</header>
 			<div
-				class="grid grid-cols-[repeat(12,minmax(0px,1fr))] gap-0.5 whitespace-nowrap md:grid-cols-[minmax(64px,1fr)_repeat(12,minmax(0px,1fr))]"
+				class="grid grid-cols-[repeat(12,minmax(0px,1fr))] items-center gap-0.5 whitespace-nowrap md:grid-cols-[minmax(64px,1fr)_repeat(12,minmax(0px,1fr))]"
 			>
 				<div class="hidden md:block"></div>
 				{
 					STEPS.map((n) => (
-						<div class="text-lo-contrast pb-2 text-center text-sm">
+						<div class="text-lo-contrast pb-2 text-center text-xs">
 							{n}
 						</div>
 					))
@@ -194,7 +195,7 @@ const COLORS = [
 				{
 					COLORS.map((color) => (
 						<>
-							<div class="text-lo-contrast hidden text-sm md:block">
+							<div class="text-lo-contrast align-center hidden text-xs md:block">
 								{color.label}
 							</div>
 							{STEPS.map((step) => (

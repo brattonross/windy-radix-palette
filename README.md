@@ -132,7 +132,7 @@ The colors in this palette will automatically switch to the light/dark variant b
 
 ## Typography
 
-The typography plugin creates a set of themes for Tailwind Typography, based on the Radix Colors gray scales.
+We also ship a typography preset that is meant to be used in combination with `windy-radix-palette` and `@tailwindcss/typography`. It adds custom color themes for all available Radix colors.
 
 ### Installation
 
@@ -150,11 +150,8 @@ const { createPlugin } = require("windy-radix-palette");
 const colors = createPlugin();
 
 module.exports = {
-	plugins: [
-		colors.plugin,
-		require("@tailwindcss/typography"),
-		require("windy-radix-typography"),
-	],
+	plugins: [colors.plugin, require("@tailwindcss/typography")],
+	presets: [require("windy-radix-typography")],
 };
 ```
 
@@ -162,6 +159,14 @@ Now you can use the prose themes in your markup:
 
 ```html
 <div class="prose prose-mauve">...</div>
+```
+
+### Customization
+
+Customization is done in the way you'd typically customize typography styles in Tailwind. Let's say that you want to make `a` tags blue:
+
+```js
+<div class="prose prose-slate prose-a:text-blue-11">...</div>
 ```
 
 ## Prior Art

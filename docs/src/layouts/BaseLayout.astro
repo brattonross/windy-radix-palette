@@ -7,9 +7,19 @@ export interface Props {
 }
 
 const { description, title } = Astro.props;
+
+const currentTheme = Astro.cookies.has("wrp_theme")
+	? Astro.cookies.get("wrp_theme")?.value ?? "system"
+	: "system";
 ---
 
-<html lang="en">
+<html
+	lang="en"
+	class:list={["selection:bg-irisA-5", {
+		dark: currentTheme === "dark",
+	}]}
+	style={{ colorScheme: currentTheme === "dark" ? "dark" : "light" }}
+>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -21,31 +31,116 @@ const { description, title } = Astro.props;
 			)
 		}
 		{description ? <meta name="description" content={description} /> : null}
-		<script is:inline>
-			const key = "windy-radix-palette-theme";
-			const theme = (() => {
-				if (
-					typeof localStorage !== "undefined" &&
-					localStorage.getItem(key)
-				) {
-					return localStorage.getItem(key);
-				}
-				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					return "dark";
-				}
-				return "light";
-			})();
-			if (theme === "light") {
-				document.documentElement.classList.remove("dark");
-				document.documentElement.style.colorScheme = "light";
-			} else {
+		<script src="htmx.org"></script>
+		{currentTheme === "system" ? (
+			<script is:inline>
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
 				document.documentElement.classList.add("dark");
 				document.documentElement.style.colorScheme = "dark";
 			}
-			window.localStorage.setItem(key, theme);
+			</script>
+		) : null}
+		<script is:inline>
+			class ThemeFieldSet extends HTMLFieldSetElement {
+				connectedCallback() {
+					this.addEventListener("change", this.#handleChange);
+				}
+
+				disconnectedCallback() {
+					this.removeEventListener("change", this.#handleChange);
+				}
+
+				#handleChange(event) {
+					const value = event.target.value;
+					const prefersDark = window.matchMedia(
+						"(prefers-color-scheme: dark)",
+					).matches;
+					const isDark =
+						value === "dark" || (value === "system" && prefersDark);
+					document.documentElement.classList.toggle("dark", isDark);
+					document.documentElement.style.colorScheme = isDark
+						? "dark"
+						: "light";
+				}
+			}
+
+			window.customElements.define("theme-field-set", ThemeFieldSet, {
+				extends: "fieldset",
+			});
 		</script>
 	</head>
-	<body class="dark:bg-gray-1 text-hi-contrast bg-white antialiased">
-		<slot />
+	<body
+		class="dark:bg-[#0b0b0b] text-hi-contrast bg-white antialiased font-sans"
+		hx-boost="true"
+	>
+		<header
+			class="dark:bg-gray-1 fixed inset-x-0 top-0 h-10 bg-white shadow-[0_1px_var(--grayA6)] backdrop-blur"
+		>
+			<div class="h-full px-4 md:px-6 lg:px-8">
+				<div class="w-full flex items-center justify-between gap-4 h-full mx-auto max-w-7xl">
+					<nav class="flex items-center gap-2">
+						<a
+							class:list={[
+								"select-none focus-visible:ring-blueA-8 flex shrink-0 items-center justify-center rounded px-3 py-1 text-sm leading-4 tracking-[0.01em] outline-none focus-visible:ring-2",
+								{
+									"text-gray-1 bg-gray-12 font-medium":
+									Astro.url.pathname === "/",
+									"hover:text-hi-contrast hover:bg-grayA-3":
+									Astro.url.pathname !== "/",
+								},
+							]}
+						href="/">Palette</a
+						>
+						<a
+							class:list={[
+								"select-none focus-visible:ring-blueA-8 flex shrink-0 items-center justify-center rounded px-3 py-1 text-sm leading-4 tracking-[0.01em] outline-none focus-visible:ring-2",
+								{
+									"text-gray-1 bg-gray-12 font-medium":
+									Astro.url.pathname === "/typography",
+									"hover:text-hi-contrast hover:bg-grayA-3":
+									Astro.url.pathname !== "/typography",
+								},
+							]}
+						href="/typography">Typography</a
+						>
+					</nav>
+					<form
+						action="/theme"
+						hx-post="/theme"
+						hx-trigger="change"
+						hx-swap="none"
+						method="post"
+						>
+						<fieldset class="flex items-center gap-2" is="theme-field-set">
+							<legend class="sr-only">Theme</legend>
+							{
+							["light", "dark", "system"].map((theme) => (
+								<label
+									for={`theme-radio-${theme}`}
+									class="text-grayA-10 hover:bg-grayA-4 active:bg-grayA-5 hover:text-hi-contrast active:text-hi-contrast [&:has(input:checked)]:bg-grayA-5 [&:has(input:checked)]:text-hi-contrast flex h-8 w-8 items-center justify-center rounded bg-transparent"
+									>
+									<svg aria-hidden="true" class="h-5 w-5">
+										<use href={`/icons.svg#theme-${theme}`} />
+									</svg>
+									<input
+										id={`theme-radio-${theme}`}
+										checked={theme === currentTheme}
+										hidden
+										name="theme"
+										type="radio"
+										value={theme}
+									/>
+									<span class="sr-only">{theme}</span>
+								</label>
+							))
+							}
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</header>
+		<div class="mt-10">
+			<slot />
+		</div>
 	</body>
 </html>
