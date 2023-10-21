@@ -119,10 +119,10 @@ This will make `danger-1` map to `red-1`, `danger-2` map to `red-2`, etc.
 
 > When designing for both light and dark modes, you sometimes need to map a variable to one color in light mode, and another color in dark mode. Common examples include:
 >
-> Components that have a white background in light mode and a subtle gray background in dark mode. For example, Card, Popover, DropdownMenu, HoverCard, Dialog etc.
-> Components that have a transparent black background in light mode and a transparent white background in dark mode. For example, Tooltip.
-> Shadows that are saturated, transparent gray in light mode, and pure black in dark mode.
-> An overlay that is light transparent black in light mode, and a darker transparent black in dark mode.
+> -   Components that have a white background in light mode and a subtle gray background in dark mode. For example, Card, Popover, DropdownMenu, HoverCard, Dialog etc.
+> -   Components that have a transparent black background in light mode and a transparent white background in dark mode. For example, Tooltip.
+> -   Shadows that are saturated, transparent gray in light mode, and pure black in dark mode.
+> -   An overlay that is light transparent black in light mode, and a darker transparent black in dark mode.
 >
 > — [Radix Colors](https://www.radix-ui.com/colors/docs/overview/aliasing#mutable-aliases)
 
