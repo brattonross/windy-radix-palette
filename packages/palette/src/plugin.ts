@@ -74,25 +74,12 @@ export function createPlugin({
 		}
 	}, generateTailwindConfig({ colors, opacitySupport }));
 
-	function alias(color: LooseRadixColor): Record<string, string>;
-	function alias(color: LooseRadixColor, step: RadixStep): string;
 	function alias(
 		color: LooseRadixColor,
 		step?: RadixStep,
 	): string | Record<string, string> {
 		if (!opacitySupport || color.includes("A")) {
-			if (step) {
-				return `var(--${color}${step})`;
-			} else {
-				const out: Record<string, string> = {};
-				for (let i = 0; i < steps.length; i++) {
-					out[steps[i]] = `var(--${color}${steps[i]})`;
-				}
-				return out;
-			}
-		}
-
-		if (color.includes("P3")) {
+			// When opacity support is disabled, P3 colors do not have "P3" in the variable name.
 			const colorName = color.replace("P3", "");
 			if (step) {
 				return `var(--${colorName}${step})`;
@@ -100,6 +87,20 @@ export function createPlugin({
 				const out: Record<string, string> = {};
 				for (let i = 0; i < steps.length; i++) {
 					out[steps[i]] = `var(--${colorName}${steps[i]})`;
+				}
+				return out;
+			}
+		}
+
+		if (color.includes("P3")) {
+			if (step) {
+				return `color(var(--${color}${step}) / <alpha-value>)`;
+			} else {
+				const out: Record<string, string> = {};
+				for (let i = 0; i < steps.length; i++) {
+					out[
+						steps[i]
+					] = `color(var(--${color}${steps[i]}) / <alpha-value>)`;
 				}
 				return out;
 			}
