@@ -56,9 +56,13 @@ module.exports = {
 };
 ```
 
-### Aliasing
+## Aliasing
 
-If you wish to alias one or more colors, you can use the available `alias` utility:
+The return value from `createPlugin()` includes an `alias` function. This function can be called to help create aliases for Radix Colors, or arbitrary values.
+
+### Semantic aliases
+
+Creating semantic aliases for colors can be helpful to when it comes to theming. For example, in western culture, it would be common to see `red` mapped to "danger", `yellow` to "warning", and `green` to "success".
 
 ```js
 const { createPlugin } = require("windy-radix-palette");
@@ -69,10 +73,156 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				// Alias an entire scale
-				primary: colors.alias("blue"),
-				// Alias a single color
-				"hi-contrast": colors.alias("slate", 12),
+				danger: {
+					1: colors.alias("red.1"),
+					2: colors.alias("red.2"),
+				},
+				warning: {
+					1: colors.alias("yellow.1"),
+					2: colors.alias("yellow.2"),
+				},
+				success: {
+					1: colors.alias("green.1"),
+					2: colors.alias("green.2"),
+				},
+			},
+		},
+	},
+};
+```
+
+### Renaming scales
+
+If you wish to rename a scale, just omit the scale step from the alias:
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				danger: colors.alias("red"),
+				warning: colors.alias("yellow"),
+				success: colors.alias("green"),
+			},
+		},
+	},
+};
+```
+
+This will make `danger-1` map to `red-1`, `danger-2` map to `red-2`, etc.
+
+### Mutable aliases
+
+> When designing for both light and dark modes, you sometimes need to map a variable to one color in light mode, and another color in dark mode. Common examples include:
+>
+> Components that have a white background in light mode and a subtle gray background in dark mode. For example, Card, Popover, DropdownMenu, HoverCard, Dialog etc.
+> Components that have a transparent black background in light mode and a transparent white background in dark mode. For example, Tooltip.
+> Shadows that are saturated, transparent gray in light mode, and pure black in dark mode.
+> An overlay that is light transparent black in light mode, and a darker transparent black in dark mode.
+>
+> — [Radix Colors](https://www.radix-ui.com/colors/docs/overview/aliasing#mutable-aliases)
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				panel: colors.alias({
+					light: "white",
+					dark: "slate.2",
+				}),
+				"panel-contrast": colors.alias({
+					light: "blackA.9",
+					dark: "whiteA.9",
+				}),
+				shadow: colors.alias({
+					light: "slateA.3",
+					dark: "black",
+				}),
+				overlay: colors.alias({
+					light: "blackA.8",
+					dark: "blackA.11",
+				}),
+			},
+		},
+	},
+};
+```
+
+It is also possible to use a mutable alias on an entire scale:
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				overlay: colors.alias({
+					light: "blackA",
+					dark: "whiteA",
+				}),
+			},
+		},
+	},
+};
+```
+
+### Arbitrary values
+
+You can also use the `alias` function to create aliases for arbitrary values:
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				surface: colors.alias({
+					light: "hsla(0, 0%, 100%, 0.9)",
+					dark: "rgba(0, 0, 0, 0.25)",
+				}),
+			},
+		},
+	},
+};
+```
+
+### CSS variable names
+
+The `alias` function will try not to create any extra CSS variables if they aren't required. In the case of mutable aliases, however, a CSS variable must be created so that we have a consistent value to reference in Tailwind config.
+
+By default, any CSS variables created will have the name `--wrp-alias-XXXXX`, where `XXXXX` is replaced with a randomly generated sequence of characters.
+
+If you want to have control over the name of the generated variable, you can pass a `name` property to your alias. The variable will use the name provided, for example, the following code will create a CSS variable `--surface`:
+
+```js
+const { createPlugin } = require("windy-radix-palette");
+
+const colors = createPlugin();
+
+module.exports = {
+	theme: {
+		extend: {
+			colors: {
+				surface: colors.alias({
+					name: "surface",
+					light: "hsla(0, 0%, 100%, 0.9)",
+					dark: "rgba(0, 0, 0, 0.25)",
+				}),
 			},
 		},
 	},
