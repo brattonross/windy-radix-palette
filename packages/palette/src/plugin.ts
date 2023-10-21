@@ -1,11 +1,6 @@
 import * as radix from "@radix-ui/colors";
 import plugin from "tailwindcss/plugin";
-
-const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
-
-export type NumberOrString<T extends number> = T | `${T}`;
-export type RadixStep = NumberOrString<(typeof steps)[number]>;
-export type LooseRadixColor = keyof typeof radix | (string & {});
+import { Aliaser, type AliaserOptions } from "./alias";
 
 export type PluginOptions = {
 	/**
@@ -34,8 +29,15 @@ export function createPlugin({
 	opacitySupport = false,
 	rootSelector = ":root",
 }: PluginOptions = {}) {
+	const aliaser = new Aliaser({
+		rootSelector,
+	});
+
 	const wrpPlugin = plugin(({ addBase, addVariant, config }) => {
-		const baseStyles = generateBaseStyles({ colors, opacitySupport });
+		const baseStyles = generateBaseStyles({
+			colors,
+			opacitySupport,
+		});
 		const [darkMode, className = ".dark"] = ([] as Array<string>).concat(
 			config("darkMode", "media"),
 		);
@@ -72,52 +74,11 @@ export function createPlugin({
 				},
 			});
 		}
+
+		addBase(aliaser.generateStyles());
 	}, generateTailwindConfig({ colors, opacitySupport }));
 
-	function alias(
-		color: LooseRadixColor,
-		step?: RadixStep,
-	): string | Record<string, string> {
-		if (!opacitySupport || color.includes("A")) {
-			// When opacity support is disabled, P3 colors do not have "P3" in the variable name.
-			const colorName = color.replace("P3", "");
-			if (step) {
-				return `var(--${colorName}${step})`;
-			} else {
-				const out: Record<string, string> = {};
-				for (let i = 0; i < steps.length; i++) {
-					out[steps[i]] = `var(--${colorName}${steps[i]})`;
-				}
-				return out;
-			}
-		}
-
-		if (color.includes("P3")) {
-			if (step) {
-				return `color(var(--${color}${step}) / <alpha-value>)`;
-			} else {
-				const out: Record<string, string> = {};
-				for (let i = 0; i < steps.length; i++) {
-					out[
-						steps[i]
-					] = `color(var(--${color}${steps[i]}) / <alpha-value>)`;
-				}
-				return out;
-			}
-		} else if (step) {
-			return `rgb(var(--${color}${step}) / <alpha-value>)`;
-		} else {
-			const out: Record<string, string> = {};
-			for (let i = 0; i < steps.length; i++) {
-				out[
-					steps[i]
-				] = `rgb(var(--${color}${steps[i]}) / <alpha-value>)`;
-			}
-			return out;
-		}
-	}
-
-	return { alias, plugin: wrpPlugin };
+	return { alias: aliaser.alias.bind(aliaser), plugin: wrpPlugin };
 }
 
 export function hexToRGBChannels(hex: string): string {
