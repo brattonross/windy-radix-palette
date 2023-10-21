@@ -205,7 +205,7 @@ module.exports = {
 
 The `alias` function will try not to create any extra CSS variables if they aren't required. In the case of mutable aliases, however, a CSS variable must be created so that we have a consistent value to reference in Tailwind config.
 
-By default, any CSS variables created will have the name `--wrp-alias-XXXXX`, where `XXXXX` is replaced with a randomly generated sequence of characters.
+By default, any CSS variables created will have the name `--wrp-alias-<unique-id>`, where `<unique-id>` is replaced with a randomly generated sequence of characters.
 
 If you want to have control over the name of the generated variable, you can pass a `name` property to your alias. The variable will use the name provided, for example, the following code will create a CSS variable `--surface`:
 

@@ -1,3 +1,4 @@
+import { createId } from "@paralleldrive/cuid2";
 import * as radix from "@radix-ui/colors";
 
 const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
@@ -184,9 +185,7 @@ export class Aliaser {
 			return name;
 		}
 
-		return (
-			"wrp-alias-" + Math.random().toString(36).substring(2, 7)
-		).toLowerCase();
+		return "wrp-alias-" + createId();
 	}
 
 	#isRadixColorName(name: string): boolean {
