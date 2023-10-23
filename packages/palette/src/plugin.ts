@@ -1,6 +1,6 @@
 import * as radix from "@radix-ui/colors";
 import plugin from "tailwindcss/plugin";
-import { Aliaser, type AliaserOptions } from "./alias";
+import { Aliaser } from "./alias";
 
 export type PluginOptions = {
 	/**
@@ -38,8 +38,9 @@ export function createPlugin({
 			colors,
 			opacitySupport,
 		});
+		const darkModeConfig = config("darkMode", "media");
 		const [darkMode, className = ".dark"] = ([] as Array<string>).concat(
-			config("darkMode", "media"),
+			darkModeConfig,
 		);
 
 		addVariant(
@@ -75,7 +76,7 @@ export function createPlugin({
 			});
 		}
 
-		addBase(aliaser.generateStyles());
+		addBase(aliaser.generateStyles({ darkMode: darkModeConfig }));
 	}, generateTailwindConfig({ colors, opacitySupport }));
 
 	return { alias: aliaser.alias.bind(aliaser), plugin: wrpPlugin };
