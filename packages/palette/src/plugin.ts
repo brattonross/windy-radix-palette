@@ -33,7 +33,7 @@ export function createPlugin({
 		rootSelector,
 	});
 
-	const wrpPlugin = plugin(({ addBase, addVariant, config }) => {
+	const wrpPlugin = plugin(({ addBase, addVariant, config, theme }) => {
 		const baseStyles = generateBaseStyles({
 			colors,
 			opacitySupport,
@@ -76,7 +76,12 @@ export function createPlugin({
 			});
 		}
 
-		addBase(aliaser.generateStyles({ darkMode: darkModeConfig }));
+		addBase(
+			aliaser.generateStyles({
+				darkMode: darkModeConfig,
+				themeFn: theme,
+			}),
+		);
 	}, generateTailwindConfig({ colors, opacitySupport }));
 
 	return { alias: aliaser.alias.bind(aliaser), plugin: wrpPlugin };

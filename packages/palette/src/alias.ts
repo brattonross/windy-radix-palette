@@ -119,10 +119,12 @@ export class Aliaser {
 
 	/** Generates Tailwind base styles for the aliased colors. */
 	public generateStyles({
-		darkMode = "media",
+		darkMode,
+		themeFn,
 	}: {
-		darkMode?: DarkModeConfig;
-	} = {}): Record<string, any> {
+		darkMode: DarkModeConfig;
+		themeFn: (path: string, defaultValue: string) => string;
+	}): Record<string, any> {
 		if (this.#aliases.size === 0) {
 			return {};
 		}
@@ -136,12 +138,16 @@ export class Aliaser {
 				lightTable[`--${variableName}`] = light;
 			} else if (light.includes(".")) {
 				const [color, step] = light.split(".");
-				lightTable[`--${variableName}`] = `var(--${color}${step})`;
+				lightTable[`--${variableName}`] = themeFn(
+					`colors.${light}`,
+					`var(--${color}${step})`,
+				);
 			} else {
 				for (let i = 1; i <= steps.length; i++) {
-					lightTable[
-						`--${variableName}-${i}`
-					] = `var(--${light}${i})`;
+					lightTable[`--${variableName}-${i}`] = themeFn(
+						`colors.${light}`,
+						`var(--${light}${i})`,
+					);
 				}
 			}
 
@@ -149,10 +155,16 @@ export class Aliaser {
 				darkTable[`--${variableName}`] = dark;
 			} else if (dark.includes(".")) {
 				const [color, step] = dark.split(".");
-				darkTable[`--${variableName}`] = `var(--${color}${step})`;
+				darkTable[`--${variableName}`] = themeFn(
+					`colors.${dark}`,
+					`var(--${color}${step})`,
+				);
 			} else {
 				for (let i = 1; i <= steps.length; i++) {
-					darkTable[`--${variableName}-${i}`] = `var(--${dark}${i})`;
+					darkTable[`--${variableName}-${i}`] = themeFn(
+						`colors.${dark}`,
+						`var(--${dark}${i})`,
+					);
 				}
 			}
 		}

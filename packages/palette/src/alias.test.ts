@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { Aliaser } from "./alias";
 
+function defaultThemeFn(_: string, defaultValue: string): string {
+	return defaultValue;
+}
+
 describe("Aliaser", () => {
 	test("full palette, same between light and dark mode", () => {
 		const aliaser = new Aliaser();
@@ -20,7 +24,10 @@ describe("Aliaser", () => {
 			"12": "var(--gray12)",
 		});
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({});
 	});
 
@@ -29,7 +36,10 @@ describe("Aliaser", () => {
 		const result = aliaser.alias("gray.12");
 		expect(result).toEqual("var(--gray12)");
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({});
 	});
 
@@ -38,7 +48,10 @@ describe("Aliaser", () => {
 		const result = aliaser.alias({ value: "gray.12" });
 		expect(result).toEqual("var(--gray12)");
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({});
 	});
 
@@ -64,7 +77,10 @@ describe("Aliaser", () => {
 			"12": "var(--test-12)",
 		});
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({
 			":root": {
 				"--test-1": "var(--gray1)",
@@ -108,7 +124,10 @@ describe("Aliaser", () => {
 		});
 		expect(result).toEqual("var(--test)");
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({
 			":root": {
 				"--test": "var(--gray12)",
@@ -129,7 +148,10 @@ describe("Aliaser", () => {
 			dark: "red",
 		});
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({
 			":host": {
 				"--test-1": "var(--gray1)",
@@ -164,12 +186,39 @@ describe("Aliaser", () => {
 		});
 	});
 
+	test("uses theme function", () => {
+		const aliaser = new Aliaser();
+		aliaser.alias({
+			name: "test",
+			light: "gray.12",
+			dark: "gray.11",
+		});
+
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: () => "var(--from-theme)",
+		});
+		expect(styles).toEqual({
+			":root": {
+				"--test": "var(--from-theme)",
+			},
+			"@media (prefers-color-scheme: dark)": {
+				":root": {
+					"--test": "var(--from-theme)",
+				},
+			},
+		});
+	});
+
 	describe("darkMode: class", () => {
 		test("full palette", () => {
 			const aliaser = new Aliaser();
 			aliaser.alias({ name: "test", light: "gray", dark: "red" });
 
-			const styles = aliaser.generateStyles({ darkMode: "class" });
+			const styles = aliaser.generateStyles({
+				darkMode: "class",
+				themeFn: defaultThemeFn,
+			});
 			expect(styles).toEqual({
 				":root": {
 					"--test-1": "var(--gray1)",
@@ -206,7 +255,10 @@ describe("Aliaser", () => {
 			const aliaser = new Aliaser();
 			aliaser.alias({ name: "test", light: "gray.12", dark: "gray.11" });
 
-			const styles = aliaser.generateStyles({ darkMode: "class" });
+			const styles = aliaser.generateStyles({
+				darkMode: "class",
+				themeFn: defaultThemeFn,
+			});
 			expect(styles).toEqual({
 				":root": {
 					"--test": "var(--gray12)",
@@ -225,6 +277,7 @@ describe("Aliaser", () => {
 
 			const styles = aliaser.generateStyles({
 				darkMode: ["class", ".dark-mode"],
+				themeFn: defaultThemeFn,
 			});
 			expect(styles).toEqual({
 				":root": {
@@ -264,6 +317,7 @@ describe("Aliaser", () => {
 
 			const styles = aliaser.generateStyles({
 				darkMode: ["class", ".dark-mode"],
+				themeFn: defaultThemeFn,
 			});
 			expect(styles).toEqual({
 				":root": {
@@ -286,7 +340,10 @@ describe("Aliaser", () => {
 		});
 		expect(result).toEqual("var(--test)");
 
-		const styles = aliaser.generateStyles();
+		const styles = aliaser.generateStyles({
+			darkMode: "media",
+			themeFn: defaultThemeFn,
+		});
 		expect(styles).toEqual({
 			":root": {
 				"--test": "hsla(0, 0%, 100%, 0.5)",
