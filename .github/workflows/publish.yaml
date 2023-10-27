@@ -1,0 +1,31 @@
+on:
+    push:
+        tags:
+            - "v*"
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Use Node v20
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20
+                  cache: "pnpm"
+            - name: Install dependencies
+              run: pnpm install
+            - name: Sherif
+              run: pnpm run sherif
+            - name: Publint
+              run: pnpm run publint
+            - name: Run tests
+              run: pnpm run test
+            - name: Build
+              run: pnpm run build
+            - name: Publish
+              run: pnpm publish --filter windy-radix-palette
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
