@@ -145,7 +145,7 @@ export class Aliaser {
 			} else {
 				for (let i = 1; i <= steps.length; i++) {
 					lightTable[`--${variableName}-${i}`] = themeFn(
-						`colors.${light}`,
+						`colors.${light}.${i}`,
 						`var(--${light}${i})`,
 					);
 				}
@@ -162,7 +162,7 @@ export class Aliaser {
 			} else {
 				for (let i = 1; i <= steps.length; i++) {
 					darkTable[`--${variableName}-${i}`] = themeFn(
-						`colors.${dark}`,
+						`colors.${dark}.${i}`,
 						`var(--${dark}${i})`,
 					);
 				}
