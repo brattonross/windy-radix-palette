@@ -301,7 +301,7 @@ const colors = createPlugin();
 
 module.exports = {
 	plugins: [colors.plugin, require("@tailwindcss/typography")],
-	presets: [require("windy-radix-typography")],
+	presets: [require("windy-radix-typography").preset],
 };
 ```
 
