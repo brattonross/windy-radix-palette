@@ -2,6 +2,8 @@
 
 An unofficial package to improve the compatibility of [Radix Colors](https://www.radix-ui.com/colors) and [Tailwind](https://tailwindcss.com/).
 
+### [You probably don't need to use this plugin!](#using-radix-colors-directly)
+
 > [!WARNING]
 > The following documentation is for version 2.x of this package.
 > v1.0.0 of this package has an issue that makes it unable to display P3 colors. There is a v2.0.0-beta.x version available which fixes this issue.
@@ -318,6 +320,81 @@ Customization is done in the way you'd typically customize typography styles in 
 ```js
 <div class="prose prose-slate prose-a:text-blue-11">...</div>
 ```
+
+## Using Radix Colors directly
+
+**You probably don't need to use this plugin!**
+
+Here is one way you can use Radix Colors with Tailwind, without this plugin:
+
+#### 1. Import Radix Colors you want to use in your CSS
+
+```css
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "@radix-ui/colors/slate";
+@import "@radix-ui/colors/slate-alpha";
+@import "@radix-ui/colors/slate-dark";
+@import "@radix-ui/colors/slate-dark-alpha";
+```
+
+#### 2. Add the colors to your Tailwind config
+
+```js
+module.exports = {
+	// ...
+	theme: {
+		extend: {
+			colors: {
+				slate: {
+					1: "var(--slate-1)",
+					2: "var(--slate-2)",
+					3: "var(--slate-3)",
+					4: "var(--slate-4)",
+					5: "var(--slate-5)",
+					6: "var(--slate-6)",
+					7: "var(--slate-7)",
+					8: "var(--slate-8)",
+					9: "var(--slate-9)",
+					10: "var(--slate-10)",
+					11: "var(--slate-11)",
+					12: "var(--slate-12)",
+				},
+				slateA: {
+					1: "var(--slate-a1)",
+					2: "var(--slate-a2)",
+					3: "var(--slate-a3)",
+					4: "var(--slate-a4)",
+					5: "var(--slate-a5)",
+					6: "var(--slate-a6)",
+					7: "var(--slate-a7)",
+					8: "var(--slate-a8)",
+					9: "var(--slate-a9)",
+					10: "var(--slate-a10)",
+					11: "var(--slate-a11)",
+					12: "var(--slate-a12)",
+				},
+			},
+		},
+	},
+};
+```
+
+#### 3. Use colors in your markup
+
+```html
+<button class="dark:bg-slate-1 hover:bg-slate-5 text-slateA-12 bg-white">
+	Button
+</button>
+```
+
+My reason for originally creating this plugin was to generate a version of the Radix Colors `.css` files that used the `.dark` selector, instead of `.dark-mode`, which used to be the only selector used by Radix Colors for dark mode at the time.
+
+What I didn't realize at that time was that [Tailwind supports customizing the dark mode selector](https://tailwindcss.com/docs/dark-mode#customizing-the-class-name), so you would have been able to integrate the two pretty easily without the trouble of using a plugin.
+
+Nowadays, Radix Colors dark mode actually also uses the `.dark` selector as well, which means that it works nicely with Tailwind out of the box.
 
 ## Prior Art
 
