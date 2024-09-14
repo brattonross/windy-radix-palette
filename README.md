@@ -361,20 +361,18 @@ module.exports = {
 					10: "var(--slate-10)",
 					11: "var(--slate-11)",
 					12: "var(--slate-12)",
-				},
-				slateA: {
-					1: "var(--slate-a1)",
-					2: "var(--slate-a2)",
-					3: "var(--slate-a3)",
-					4: "var(--slate-a4)",
-					5: "var(--slate-a5)",
-					6: "var(--slate-a6)",
-					7: "var(--slate-a7)",
-					8: "var(--slate-a8)",
-					9: "var(--slate-a9)",
-					10: "var(--slate-a10)",
-					11: "var(--slate-a11)",
-					12: "var(--slate-a12)",
+					a1: "var(--slate-a1)",
+					a2: "var(--slate-a2)",
+					a3: "var(--slate-a3)",
+					a4: "var(--slate-a4)",
+					a5: "var(--slate-a5)",
+					a6: "var(--slate-a6)",
+					a7: "var(--slate-a7)",
+					a8: "var(--slate-a8)",
+					a9: "var(--slate-a9)",
+					a10: "var(--slate-a10)",
+					a11: "var(--slate-a11)",
+					a12: "var(--slate-a12)",
 				},
 			},
 		},
@@ -385,7 +383,7 @@ module.exports = {
 #### 3. Use colors in your markup
 
 ```html
-<button class="dark:bg-slate-1 hover:bg-slate-5 text-slateA-12 bg-white">
+<button class="dark:bg-slate-1 hover:bg-slate-a5 text-slate-12 bg-white">
 	Button
 </button>
 ```
@@ -394,7 +392,7 @@ My reason for originally creating this plugin was to generate a version of the R
 
 What I didn't realize at that time was that [Tailwind supports customizing the dark mode selector](https://tailwindcss.com/docs/dark-mode#customizing-the-class-name), so you would have been able to integrate the two pretty easily without the trouble of using a plugin.
 
-Nowadays, Radix Colors dark mode actually also uses the `.dark` selector as well, which means that it works nicely with Tailwind out of the box.
+Nowadays, Radix Colors dark mode actually also uses the `.dark` selector as well, which means that it works nicely with Tailwind out of the box. In fact, there are examples of Radix and Tailwind integration on the Radix Primitives docs.
 
 ## Prior Art
 
